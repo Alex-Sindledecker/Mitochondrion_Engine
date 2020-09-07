@@ -1,1 +1,6 @@
-*.vs
+#Directories
+.vs/
+out/
+
+#Files
+*.user
