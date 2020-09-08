@@ -16,22 +16,22 @@ namespace Engine
 		return this;
 	}
 
-	void DebugConsole::logError(const char* msg)
+	void DebugConsole::logError(const char* msg, bool lf)
 	{
 		setTextColor(FOREGROUND_RED);
-		log(msg);
+		log(msg, lf);
 	}
 
-	void DebugConsole::logWarning(const char* msg)
+	void DebugConsole::logWarning(const char* msg, bool lf)
 	{
 		setTextColor(FOREGROUND_RED | FOREGROUND_GREEN);
-		log(msg);
+		log(msg, lf);
 	}
 
-	void DebugConsole::logMessage(const char* msg)
+	void DebugConsole::logMessage(const char* msg, bool lf)
 	{
 		setTextColor(FOREGROUND_GREEN);
-		log(msg);
+		log(msg, lf);
 	}
 
 	DebugConsole& DebugConsole::getInstance()
@@ -40,9 +40,12 @@ namespace Engine
 		return instance;
 	}
 
-	void DebugConsole::log(const char* msg)
+	void DebugConsole::log(const char* msg, bool lf)
 	{
-		std::cout << msg << std::endl;
+
+		std::cout << msg;
+		if (lf)
+			std::cout << '\n';
 		setTextColor(FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
 	}
 
