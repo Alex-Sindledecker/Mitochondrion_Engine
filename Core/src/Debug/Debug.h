@@ -19,27 +19,38 @@ namespace Engine
 		virtual void logMessage(const char* msg, bool lf = true) = 0;
 	};
 
-	class ENGINE_API Debug
+	class ENGINE_API EmptyLogTarget : public LogTarget
+	{
+	public:
+		virtual const char* getName() override;
+		virtual LogTarget* getHandle() override;
+		virtual void logError(const char* msg, bool lf = true) override;
+		virtual void logWarning(const char* msg, bool lf = true) override;
+		virtual void logMessage(const char* msg, bool lf = true) override;
+	} static EmptyLogger;
+
+	class ENGINE_API DebugLogger
 	{
 	public:
 		using LogLevel = int;
 		const int LOG_ALL = 0b0111;
 		const int LOG_ERROR = 0b0001;
-		const int LOG_WARN = 0b0010;
+		const int LOG_WARNING = 0b0010;
 		const int LOG_MESSAGE = 0b0100;
 
 	public:
-		static Debug& getInstance();
+		static DebugLogger& getInstance();
 
-		void setLogTarget(LogTarget* handle);
-		void setLogLevel(LogLevel level);
+		void setTarget(LogTarget* handle);
+		void setLevel(LogLevel level);
 
 		template<class... Ts>
 		void logError(std::string error, Ts... args)
 		{
 			if (mLogLevel & LOG_ERROR)
 			{
-				std::stringstream ss("[00:00:00](ERROR!)   -> ");
+				std::stringstream ss;
+				ss << "[00:00:00](ERROR!)   -> ";
 				logFormated(ss, error, 0, args...);
 				mLogTarget->logError(ss.str().c_str());
 			}
@@ -48,9 +59,10 @@ namespace Engine
 		template<class... Ts>
 		void logWarning(std::string warning, Ts... args)
 		{
-			if (mLogLevel & LOG_WARN)
+			if (mLogLevel & LOG_WARNING)
 			{
-				std::stringstream ss("[00:00:00](WARNING!) -> ");
+				std::stringstream ss;
+				ss << "[00:00:00](WARNING!) -> ";
 				logFormated(ss, warning, 0, args...);
 				mLogTarget->logWarning(ss.str().c_str());
 			}
@@ -61,18 +73,19 @@ namespace Engine
 		{
 			if (mLogLevel & LOG_MESSAGE)
 			{
-				std::stringstream ss("[00:00:00](MESSAGE)  -> ");
+				std::stringstream ss;
+				ss << "[00:00:00](MESSAGE)  -> ";
 				logFormated(ss, message, 0, args...);
 				mLogTarget->logMessage(ss.str().c_str());
 			}
 		}
 
-		Debug(const Debug&) = delete;
-		void operator=(const Debug&) = delete;
+		DebugLogger(const DebugLogger&) = delete;
+		void operator=(const DebugLogger&) = delete;
 
 	private:
-		Debug();
-		~Debug() {}
+		DebugLogger();
+		~DebugLogger() {}
 
 		void logFormated(std::stringstream& ss, std::string& string, int offset) 
 		{

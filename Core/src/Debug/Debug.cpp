@@ -4,26 +4,44 @@
 namespace Engine
 {
 
-	Debug& Debug::getInstance()
+	DebugLogger& DebugLogger::getInstance()
 	{
-		static Debug debug;
+		static DebugLogger debug;
 		return debug;
 	}
 
-	void Debug::setLogTarget(LogTarget* handle)
+	void DebugLogger::setTarget(LogTarget* handle)
 	{
-		mLogTarget = handle;
+		if (handle == nullptr)
+			mLogTarget = &EmptyLogger;
+		else
+			mLogTarget = handle;
 	}
 
-	void Debug::setLogLevel(LogLevel level)
+	void DebugLogger::setLevel(LogLevel level)
 	{
 		mLogLevel = level;
 	}
 
-	Debug::Debug()
+	DebugLogger::DebugLogger()
 	{
 		mLogTarget = DebugConsole::getInstance().getHandle();
 		mLogLevel = LOG_ALL;
 	}
 
+	const char* EmptyLogTarget::getName()
+	{
+		return nullptr;
+	}
+
+	LogTarget* EmptyLogTarget::getHandle()
+	{
+		return nullptr;
+	}
+
+	void EmptyLogTarget::logError(const char* msg, bool lf) {}
+
+	void EmptyLogTarget::logWarning(const char* msg, bool lf) {}
+
+	void EmptyLogTarget::logMessage(const char* msg, bool lf) {}
 }
