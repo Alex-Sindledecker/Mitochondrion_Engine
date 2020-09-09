@@ -1,7 +1,5 @@
+#include "pch.h"
 #include "DebugConsole.h"
-
-#include <iostream>
-#include <Windows.h>
 
 namespace Engine
 {

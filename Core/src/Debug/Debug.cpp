@@ -1,5 +1,6 @@
+#include "pch.h"
 #include "Debug.h"
-#include "DebugConsole.h"
+#include "Logging/DebugConsole.h"
 
 namespace Engine
 {
@@ -28,20 +29,4 @@ namespace Engine
 		mLogTarget = DebugConsole::getInstance().getHandle();
 		mLogLevel = LOG_ALL;
 	}
-
-	const char* EmptyLogTarget::getName()
-	{
-		return nullptr;
-	}
-
-	LogTarget* EmptyLogTarget::getHandle()
-	{
-		return nullptr;
-	}
-
-	void EmptyLogTarget::logError(const char* msg, bool lf) {}
-
-	void EmptyLogTarget::logWarning(const char* msg, bool lf) {}
-
-	void EmptyLogTarget::logMessage(const char* msg, bool lf) {}
 }

@@ -1,33 +1,11 @@
 #pragma once
 
-#include "../Application/Core.h"
-#include <sstream>
-#include <iostream>
+#include "Logging/LogTarget.h"
+#include "Core/StringTools.h"
+#include "Core/Time.h"
 
 namespace Engine
 {
-
-	class ENGINE_API LogTarget
-	{
-	public:
-		virtual ~LogTarget() = 0 {};
-
-		virtual const char* getName() = 0;
-		virtual LogTarget* getHandle() = 0;
-		virtual void logError(const char* msg, bool lf = true) = 0;
-		virtual void logWarning(const char* msg, bool lf = true) = 0;
-		virtual void logMessage(const char* msg, bool lf = true) = 0;
-	};
-
-	class ENGINE_API EmptyLogTarget : public LogTarget
-	{
-	public:
-		virtual const char* getName() override;
-		virtual LogTarget* getHandle() override;
-		virtual void logError(const char* msg, bool lf = true) override;
-		virtual void logWarning(const char* msg, bool lf = true) override;
-		virtual void logMessage(const char* msg, bool lf = true) override;
-	} static EmptyLogger;
 
 	class ENGINE_API DebugLogger
 	{
@@ -49,10 +27,8 @@ namespace Engine
 		{
 			if (mLogLevel & LOG_ERROR)
 			{
-				std::stringstream ss;
-				ss << "[00:00:00](ERROR!)   -> ";
-				logFormated(ss, error, 0, args...);
-				mLogTarget->logError(ss.str().c_str());
+				std::string time = clock.nowAsMSM();
+				mLogTarget->logError(buildFormattedString(time + "(ERROR!) -> " + error, args...).c_str());
 			}
 		}
 
@@ -61,10 +37,8 @@ namespace Engine
 		{
 			if (mLogLevel & LOG_WARNING)
 			{
-				std::stringstream ss;
-				ss << "[00:00:00](WARNING!) -> ";
-				logFormated(ss, warning, 0, args...);
-				mLogTarget->logWarning(ss.str().c_str());
+				std::string time = clock.nowAsMSM();
+				mLogTarget->logWarning(buildFormattedString(time + "(WARNING!) -> " + warning, args...).c_str());
 			}
 		}
 
@@ -73,10 +47,8 @@ namespace Engine
 		{
 			if (mLogLevel & LOG_MESSAGE)
 			{
-				std::stringstream ss;
-				ss << "[00:00:00](MESSAGE)  -> ";
-				logFormated(ss, message, 0, args...);
-				mLogTarget->logMessage(ss.str().c_str());
+				std::string time = clock.nowAsMSM();
+				mLogTarget->logMessage(buildFormattedString(time + "(MESSAGE) -> " + message, args...).c_str());
 			}
 		}
 
@@ -87,36 +59,9 @@ namespace Engine
 		DebugLogger();
 		~DebugLogger() {}
 
-		void logFormated(std::stringstream& ss, std::string& string, int offset) 
-		{
-			if (ss.str().length() == 0)
-				ss << string;
-			else
-			{
-				ss << string.substr(offset);
-			}
-		}
-
-		template<class T, class... Ts>
-		void logFormated(std::stringstream& ss, std::string& string, int offset, T arg, Ts... args)
-		{
-			auto start = string.find("{", offset);
-			if (start != std::string::npos)
-			{
-				auto end = string.find("}", start);
-
-				ss << string.substr(offset, start - offset) << arg;
-				logFormated(ss, string, end + 1, args...);
-			}
-			else
-			{
-				ss << arg;
-				logFormated(ss, string, offset, args...);
-			}
-		}
-
 		LogTarget* mLogTarget;
 		LogLevel mLogLevel;
+		Clock clock;
 	};
 
 }
