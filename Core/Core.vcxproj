@@ -145,7 +145,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>ENGINE_EXPORT;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>ENGINE_EXPORT;_DEV;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <Optimization>Custom</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -198,7 +198,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>ENGINE_EXPORT;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>ENGINE_EXPORT;_DEV;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <Optimization>Custom</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -233,6 +233,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Debug\DebugTools.h" />
+    <ClInclude Include="src\Debug\Logging\FileLog.h" />
     <ClInclude Include="src\Core\StringTools.h" />
     <ClInclude Include="src\Core\Time.h" />
     <ClInclude Include="src\Debug\Logging\LogTarget.h" />
@@ -245,6 +247,7 @@
     <ClInclude Include="src\pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Debug\Logging\FileLog.cpp" />
     <ClCompile Include="src\Core\Time.cpp" />
     <ClCompile Include="src\Debug\Logging\LogTarget.cpp" />
     <ClCompile Include="src\Debug\Debug.cpp" />

@@ -5,7 +5,7 @@ namespace Engine
 {
 
 	App::App()
-		: Debug(DebugLogger::getInstance())
+		: console(DebugLogger::getInstance())
 	{
 		
 	}

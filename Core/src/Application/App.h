@@ -9,16 +9,14 @@ namespace Engine
 	class ENGINE_API App
 	{
 	public:
-		DebugLogger& Debug;
-	public:
 		App();
 		virtual ~App();
 
 		//Runs the application
 		virtual void run();
 
-	private:
-		
+	protected:
+		DebugLogger& console;
 	};
 
 	App* createApp();

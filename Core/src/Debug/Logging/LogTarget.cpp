@@ -4,20 +4,10 @@
 namespace Engine
 {
 
-	const char* EmptyLogTarget::getName()
-	{
-		return nullptr;
-	}
+	void EmptyLogTarget::logError(const char* msg) {}
 
-	LogTarget* EmptyLogTarget::getHandle()
-	{
-		return nullptr;
-	}
+	void EmptyLogTarget::logWarning(const char* msg) {}
 
-	void EmptyLogTarget::logError(const char* msg, bool lf) {}
-
-	void EmptyLogTarget::logWarning(const char* msg, bool lf) {}
-
-	void EmptyLogTarget::logMessage(const char* msg, bool lf) {}
+	void EmptyLogTarget::logMessage(const char* msg) {}
 
 }

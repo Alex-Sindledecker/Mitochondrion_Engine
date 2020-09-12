@@ -26,7 +26,7 @@ namespace Engine
 
 	DebugLogger::DebugLogger()
 	{
-		mLogTarget = DebugConsole::getInstance().getHandle();
+		mLogTarget = &DebugConsole::getInstance();
 		mLogLevel = LOG_ALL;
 	}
 }

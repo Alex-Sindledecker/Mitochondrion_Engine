@@ -35,8 +35,15 @@ namespace Engine
 		//Resets the start time to the current global time
 		void restart();
 
+		//Returns the time since the program start in seconds
+		static double getGlobalTime();
+		//Returns the time since program start in "[minutes:seconds:milliseconds]" format
+		static std::string getGlobalTimeAsMSM();
+
 	private:
 		TimeStamp mStart;
 		TimeStamp mLastTick;
+
+		static Clock mGlobalClock;
 	};
 }

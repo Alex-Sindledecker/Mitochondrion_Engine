@@ -8,11 +8,9 @@ namespace Engine
 	class ENGINE_API DebugConsole : public LogTarget
 	{
 	public:
-		virtual const char* getName() override;
-		virtual LogTarget* getHandle() override;
-		virtual void logError(const char* msg, bool lf = true) override;
-		virtual void logWarning(const char* msg, bool lf = true) override;
-		virtual void logMessage(const char* msg, bool lf = true) override;
+		virtual void logError(const char* msg) override;
+		virtual void logWarning(const char* msg) override;
+		virtual void logMessage(const char* msg) override;
 
 		static DebugConsole& getInstance();
 
@@ -23,7 +21,7 @@ namespace Engine
 		DebugConsole() {}
 		~DebugConsole() {}
 
-		static void log(const char* msg, bool lf = true);
+		static void log(const char* msg);
 		static void setTextColor(int color);
 	};
 

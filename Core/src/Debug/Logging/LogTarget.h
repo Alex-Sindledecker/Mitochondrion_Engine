@@ -10,21 +10,17 @@ namespace Engine
 	public:
 		virtual ~LogTarget() = 0 {};
 
-		virtual const char* getName() = 0;
-		virtual LogTarget* getHandle() = 0;
-		virtual void logError(const char* msg, bool lf = true) = 0;
-		virtual void logWarning(const char* msg, bool lf = true) = 0;
-		virtual void logMessage(const char* msg, bool lf = true) = 0;
+		virtual void logError(const char* msg) = 0;
+		virtual void logWarning(const char* msg) = 0;
+		virtual void logMessage(const char* msg) = 0;
 	};
 
 	class ENGINE_API EmptyLogTarget : public LogTarget
 	{
 	public:
-		virtual const char* getName() override;
-		virtual LogTarget* getHandle() override;
-		virtual void logError(const char* msg, bool lf = true) override;
-		virtual void logWarning(const char* msg, bool lf = true) override;
-		virtual void logMessage(const char* msg, bool lf = true) override;
+		virtual void logError(const char* msg) override;
+		virtual void logWarning(const char* msg) override;
+		virtual void logMessage(const char* msg) override;
 	} static EmptyLogger;
 
 }

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "DebugTools.h"
 #include "Logging/LogTarget.h"
 #include "Core/StringTools.h"
 #include "Core/Time.h"
@@ -27,7 +28,7 @@ namespace Engine
 		{
 			if (mLogLevel & LOG_ERROR)
 			{
-				std::string time = clock.nowAsMSM();
+				std::string time = Clock::getGlobalTimeAsMSM();
 				mLogTarget->logError(buildFormattedString(time + "(ERROR!) -> " + error, args...).c_str());
 			}
 		}
@@ -37,7 +38,7 @@ namespace Engine
 		{
 			if (mLogLevel & LOG_WARNING)
 			{
-				std::string time = clock.nowAsMSM();
+				std::string time = Clock::getGlobalTimeAsMSM();
 				mLogTarget->logWarning(buildFormattedString(time + "(WARNING!) -> " + warning, args...).c_str());
 			}
 		}
@@ -47,7 +48,7 @@ namespace Engine
 		{
 			if (mLogLevel & LOG_MESSAGE)
 			{
-				std::string time = clock.nowAsMSM();
+				std::string time = Clock::getGlobalTimeAsMSM();
 				mLogTarget->logMessage(buildFormattedString(time + "(MESSAGE) -> " + message, args...).c_str());
 			}
 		}
@@ -61,7 +62,6 @@ namespace Engine
 
 		LogTarget* mLogTarget;
 		LogLevel mLogLevel;
-		Clock clock;
 	};
 
 }

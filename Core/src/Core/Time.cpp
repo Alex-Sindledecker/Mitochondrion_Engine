@@ -2,36 +2,53 @@
 #include "Time.h"
 #include "StringTools.h"
 
-Engine::Clock::Clock()
+namespace Engine
 {
-	mStart = ENGINE_API_CNOW;
-}
 
-double Engine::Clock::tick()
-{
-	auto current = ENGINE_API_CNOW;
-	double elapsed = std::chrono::duration<double>(current - mLastTick).count();
-	mLastTick = current;
+	Clock Clock::mGlobalClock;
 
-	return elapsed;
-}
+	Clock::Clock()
+	{
+		mStart = ENGINE_API_CNOW;
+	}
 
-double Engine::Clock::now()
-{
-	return std::chrono::duration<double>(ENGINE_API_CNOW - mStart).count();
-}
+	double Clock::tick()
+	{
+		auto current = ENGINE_API_CNOW;
+		double elapsed = std::chrono::duration<double>(current - mLastTick).count();
+		mLastTick = current;
 
-std::string Engine::Clock::nowAsMSM()
-{
-	auto elapsed = ENGINE_API_CNOW - mStart;
-	int min = std::chrono::duration_cast<Minutes>(elapsed).count();
-	int sec = std::chrono::duration_cast<Seconds>(elapsed).count();
-	int mil = std::chrono::duration_cast<Milliseconds>(elapsed).count();
+		return elapsed;
+	}
 
-	return buildFormattedString("[{}:{}:{}]", min, sec % 60, mil % 1000);
-}
+	double Clock::now()
+	{
+		return std::chrono::duration<double>(ENGINE_API_CNOW - mStart).count();
+	}
 
-void Engine::Clock::restart()
-{
-	mStart = ENGINE_API_CNOW;
+	std::string Clock::nowAsMSM()
+	{
+		auto elapsed = ENGINE_API_CNOW - mStart;
+		int min = std::chrono::duration_cast<Minutes>(elapsed).count();
+		int sec = std::chrono::duration_cast<Seconds>(elapsed).count();
+		int mil = std::chrono::duration_cast<Milliseconds>(elapsed).count();
+
+		return buildFormattedString("[{}:{}:{}]", min, sec % 60, mil % 1000);
+	}
+
+	void Clock::restart()
+	{
+		mStart = ENGINE_API_CNOW;
+	}
+
+	double Clock::getGlobalTime()
+	{
+		return mGlobalClock.now();
+	}
+
+	std::string Clock::getGlobalTimeAsMSM()
+	{
+		return mGlobalClock.nowAsMSM();
+	}
+
 }
