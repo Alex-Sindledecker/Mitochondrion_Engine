@@ -1,6 +1,7 @@
 #pragma once
 
-#include "Core.h"
+#include "Core/Core.h"
+#include "Debug/Debug.h"
 
 namespace Engine
 {
@@ -13,6 +14,9 @@ namespace Engine
 
 		//Runs the application
 		virtual void run();
+
+	protected:
+		DebugLogger& console;
 	};
 
 	App* createApp();
