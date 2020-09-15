@@ -5,17 +5,16 @@
 #include <string>
 #include <chrono>
 
-#define ENGINE_API_CNOW std::chrono::high_resolution_clock::now()
-
 namespace Engine
 {
+	using Minutes = std::chrono::minutes;
+	using Seconds = std::chrono::seconds;
+	using Milliseconds = std::chrono::milliseconds;
+	using Microseconds = std::chrono::microseconds;
+	using TimeStamp = std::chrono::high_resolution_clock::time_point;
+
 	class ENGINE_API Clock
 	{
-	public:
-		using Minutes = std::chrono::minutes;
-		using Seconds = std::chrono::seconds;
-		using Milliseconds = std::chrono::milliseconds;
-		using TimeStamp = std::chrono::high_resolution_clock::time_point;
 	public:
 		Clock();
 
@@ -27,8 +26,8 @@ namespace Engine
 		template<class T>
 		double now()
 		{
-			static_assert(std::is_same<T, Minutes>::value || std::is_same<T, Seconds>::value || std::is_same<T, Milliseconds>::value, "Invalid time value passed!");
-			return std::chrono::duration_cast<T>(ENGINE_API_CNOW - mStart).count();
+			static_assert(std::is_same<T, std::chrono::duration>::value, "Invalid time value passed!");
+			return std::chrono::duration_cast<T>(std::chrono::high_resolution_clock::now() - mStart).count();
 		}
 		//Returns the time since creation or the last restart in "[minutes:seconds:milliseconds]" format
 		std::string nowAsMSM();
@@ -45,5 +44,19 @@ namespace Engine
 		TimeStamp mLastTick;
 
 		static Clock mGlobalClock;
+	};
+
+	class ENGINE_API Timer
+	{
+	public:
+		Timer();
+
+		//Starts the timer
+		void start();
+		//Stops the timer and returns the elapsed time in milliseconds
+		double stop();
+
+	private:
+		TimeStamp mStart;
 	};
 }

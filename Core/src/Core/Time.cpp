@@ -9,12 +9,12 @@ namespace Engine
 
 	Clock::Clock()
 	{
-		mStart = ENGINE_API_CNOW;
+		mStart = std::chrono::high_resolution_clock::now();
 	}
 
 	double Clock::tick()
 	{
-		auto current = ENGINE_API_CNOW;
+		auto current = std::chrono::high_resolution_clock::now();
 		double elapsed = std::chrono::duration<double>(current - mLastTick).count();
 		mLastTick = current;
 
@@ -23,12 +23,12 @@ namespace Engine
 
 	double Clock::now()
 	{
-		return std::chrono::duration<double>(ENGINE_API_CNOW - mStart).count();
+		return std::chrono::duration<double>(std::chrono::high_resolution_clock::now() - mStart).count();
 	}
 
 	std::string Clock::nowAsMSM()
 	{
-		auto elapsed = ENGINE_API_CNOW - mStart;
+		auto elapsed = std::chrono::high_resolution_clock::now() - mStart;
 		int min = std::chrono::duration_cast<Minutes>(elapsed).count();
 		int sec = std::chrono::duration_cast<Seconds>(elapsed).count();
 		int mil = std::chrono::duration_cast<Milliseconds>(elapsed).count();
@@ -38,7 +38,7 @@ namespace Engine
 
 	void Clock::restart()
 	{
-		mStart = ENGINE_API_CNOW;
+		mStart = std::chrono::high_resolution_clock::now();
 	}
 
 	double Clock::getGlobalTime()
@@ -49,6 +49,20 @@ namespace Engine
 	std::string Clock::getGlobalTimeAsMSM()
 	{
 		return mGlobalClock.nowAsMSM();
+	}
+
+	Timer::Timer()
+	{
+	}
+
+	void Timer::start()
+	{
+		mStart = std::chrono::high_resolution_clock::now();
+	}
+
+	double Timer::stop()
+	{
+		return std::chrono::duration_cast<Microseconds>(std::chrono::high_resolution_clock::now() - mStart).count() / 1000.0;
 	}
 
 }
