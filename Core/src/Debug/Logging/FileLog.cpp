@@ -12,6 +12,7 @@ namespace Engine
 		mName = name;
 		mOut.open(mPath + mName, std::ios::app);
 		ENGINE_ASSERT(mOut.is_open());
+		mOut << "=============================\n" << "New Session Started\n" << "=============================\n";
 	}
 
 	FileLog::~FileLog()
