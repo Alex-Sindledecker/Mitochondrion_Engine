@@ -11,7 +11,7 @@ public:
 	void run() override
 	{
 		Engine::FileLog flog("", "debug_trace.txt");
-		console.setTarget(&flog);
+		//console.setTarget(&flog);
 
 		srand(time(NULL));
 		//Debug.setTarget(nullptr);
