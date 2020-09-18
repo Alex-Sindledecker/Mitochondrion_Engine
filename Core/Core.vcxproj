@@ -261,6 +261,7 @@
     <ClInclude Include="src\pch.h" />
     <ClInclude Include="src\Application\Window.h" />
     <ClInclude Include="src\Core\StackAllocator.h" />
+    <ClInclude Include="src\Core\UniquePointer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Debug\Logging\FileLog.cpp" />

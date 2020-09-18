@@ -9,8 +9,7 @@ namespace Engine
 	{
 		this->title = title;
 		this->viewport = { 0, 0, width, height };
-		window = glfwCreateWindow(width, height, title, nullptr, nullptr);
-		ENGINE_ASSERT(window != nullptr);
+		window = glfwCreateWindow(width, height, title, NULL, NULL);
 		glfwMakeContextCurrent(window);
 		glfwSetWindowUserPointer(window, this);
 		setVsyncEnabled(true);
@@ -51,7 +50,7 @@ namespace Engine
 	void Window::setVsyncEnabled(bool enable)
 	{
 		if (enable)
-			glfwSwapInterval(60); //TODO: Find monitor refresh rate and set the swap interval to that instead
+			glfwSwapInterval(1); //TODO: Find monitor refresh rate and set the swap interval to that instead
 		else
 			glfwSwapInterval(0);
 	}

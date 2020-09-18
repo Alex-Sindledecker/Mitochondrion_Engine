@@ -13,10 +13,7 @@ public:
 		Engine::Window window(1280, 720, "Hello Engine!");
 
 		Engine::StackAllocator a(16, true);
-		auto x = a.alloc<int>();
-		auto y = a.alloc<float>();
-		auto z = a.alloc<double>();
-		auto w = a.alloc<double>();
+		auto x = a.alloc<TestClass>();
 
 		while (!window.isCloseRequested())
 		{

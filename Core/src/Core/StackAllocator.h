@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Core.h"
+#include "UniquePointer.h"
 
 namespace Engine
 {
@@ -16,7 +17,7 @@ namespace Engine
 		~StackAllocator();
 
 		template<class Ty, class... Tys>
-		std::unique_ptr<Ty> alloc(Tys... args)
+		UniquePtr<Ty> alloc(Tys... args)
 		{
 			Marker alignedHead = alignAddr(head, sizeof(Ty));
 			if (alignedHead + sizeof(Ty) > cap)
@@ -25,7 +26,7 @@ namespace Engine
 			Ty* t = new(data + alignedHead)Ty(args...);
 			head = alignedHead + sizeof(Ty);
 
-			return std::unique_ptr<Ty>(t);
+			return UniquePtr<Ty>(t, JanitorType::DESTROY_DATA);
 		}
 
 		inline void freeToMarker(Marker marker);
