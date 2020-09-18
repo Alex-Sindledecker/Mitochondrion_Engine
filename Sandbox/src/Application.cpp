@@ -1,19 +1,27 @@
-#include <stdio.h>
 #include <Engine.h>
-#include <Application/EntryPoint.h>
-#include <chrono>
-#include <thread>
+#include <Debug/Debug.h>
+#include <Debug/Logging/FileLog.h>
+
+#include <Application/Window.h>
+#include <Core/StackAllocator.h>
 
 class Application : public Engine::App
 {
 public:
 	void run() override
 	{
-		while(true)
+		Engine::Window window(1280, 720, "Hello Engine!");
+
+		Engine::StackAllocator a(16, true);
+		auto x = a.alloc<int>();
+		auto y = a.alloc<float>();
+		auto z = a.alloc<double>();
+		auto w = a.alloc<double>();
+
+		while (!window.isCloseRequested())
 		{
-			printf("Hello World!");
-			using namespace std::chrono_literals;
-			std::this_thread::sleep_for(1s);
+			window.t_pollEvents();
+			window.swapBuffers();
 		}
 	}
 };
