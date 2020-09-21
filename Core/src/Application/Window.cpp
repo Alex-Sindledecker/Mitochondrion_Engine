@@ -5,11 +5,14 @@
 namespace Engine
 {
 
-	Window::Window(u16 width, u16 height, const char* title)
+	Window::Window(u16 width, u16 height, const char* title, bool fullscreen)
 	{
 		this->title = title;
 		this->viewport = { 0, 0, width, height };
-		window = glfwCreateWindow(width, height, title, NULL, NULL);
+		if (fullscreen)
+			window = glfwCreateWindow(width, height, title, glfwGetPrimaryMonitor(), nullptr);
+		else
+			window = glfwCreateWindow(width, height, title, nullptr, nullptr);
 		glfwMakeContextCurrent(window);
 		glfwSetWindowUserPointer(window, this);
 		setVsyncEnabled(true);

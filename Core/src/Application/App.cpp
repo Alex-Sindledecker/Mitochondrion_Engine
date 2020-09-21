@@ -7,7 +7,6 @@ namespace Engine
 {
 
 	App::App()
-		: console(DebugLogger::getInstance())
 	{
 		glfwInit();
 	}

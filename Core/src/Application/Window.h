@@ -16,7 +16,7 @@ namespace Engine
 	class ENGINE_API Window
 	{
 	public:
-		Window(u16 width, u16 height, const char* title);
+		Window(u16 width, u16 height, const char* title, bool fullscreen = false);
 		virtual ~Window();
 
 		void swapBuffers() const;

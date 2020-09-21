@@ -21,7 +21,7 @@ namespace Engine
 		{
 			Marker alignedHead = alignAddr(head, sizeof(Ty));
 			if (alignedHead + sizeof(Ty) > cap)
-				setCapacity(cap * 2);
+				setCapacity((cap + sizeof(Ty)) * 2);
 
 			Ty* t = new(data + alignedHead)Ty(args...);
 			head = alignedHead + sizeof(Ty);
@@ -30,10 +30,9 @@ namespace Engine
 		}
 
 		inline void freeToMarker(Marker marker);
-
 		void setCapacity(u32 newCap);
+		u8* getDataPtr() const;
 		const u32 getCapacity() const;
-		const u8* getDataPtr() const;
 		const Marker getHeadMarker() const;
 
 		const bool operator==(const StackAllocator& compare) const;

@@ -9,3 +9,5 @@
 #include "Application/EntryPoint.h"
 
 #include "Core/Time.h"
+
+static Engine::DebugLogger& Logger = Engine::DebugLogger::getInstance();

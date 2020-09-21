@@ -5,15 +5,16 @@
 #include <Application/Window.h>
 #include <Core/StackAllocator.h>
 
+#include <iostream>
+
+int temp = 0;
+
 class Application : public Engine::App
 {
 public:
 	void run() override
 	{
 		Engine::Window window(1280, 720, "Hello Engine!");
-
-		Engine::StackAllocator a(16, true);
-		auto x = a.alloc<TestClass>();
 
 		while (!window.isCloseRequested())
 		{
@@ -25,5 +26,6 @@ public:
 
 Engine::App* Engine::createApp()
 {
+	Logger.logMessage("Hello World!");
 	return new Application();
 }

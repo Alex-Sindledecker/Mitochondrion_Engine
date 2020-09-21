@@ -9,11 +9,6 @@ namespace Engine
 		data = new u8[capacity];
 		cap = capacity;
 		head = 0;
-
-		for (int i = 0; i < capacity; i++)
-		{
-			data[i] = i + 1;
-		}
 	}
 
 	StackAllocator::StackAllocator(const StackAllocator& allocator)
@@ -66,7 +61,7 @@ namespace Engine
 		return cap;
 	}
 
-	const u8* StackAllocator::getDataPtr() const
+	u8* StackAllocator::getDataPtr() const
 	{
 		return data;
 	}

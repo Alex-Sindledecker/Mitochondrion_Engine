@@ -14,9 +14,6 @@ namespace Engine
 
 		//Runs the application
 		virtual void run();
-
-	protected:
-		DebugLogger& console;
 	};
 
 	App* createApp();

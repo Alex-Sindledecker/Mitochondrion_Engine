@@ -56,6 +56,7 @@ namespace Engine
 		}
 
 		Ty* operator->() const { return ptr; }
+		Ty& operator*() { return *ptr; }
 		bool operator==(const UniquePtr& ptr) const { return *this->ptr == *ptr->ptr; }
 		bool operator==(const Ty* ptr) const { return *this->ptr == *ptr; }
 		bool operator==(const Ty& ref) const { return *ptr == ref; }
