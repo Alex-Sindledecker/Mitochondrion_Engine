@@ -4,8 +4,12 @@
 
 namespace Engine
 {
+	GLFWwindow* PrimaryDisplay;
+
+	constexpr u8 eventQueueCapactiy = 20;
 
 	Window::Window(u16 width, u16 height, const char* title, bool fullscreen)
+		: events(eventQueueCapactiy)
 	{
 		this->title = title;
 		this->viewport = { 0, 0, width, height };
@@ -14,9 +18,12 @@ namespace Engine
 		else
 			window = glfwCreateWindow(width, height, title, nullptr, nullptr);
 		glfwMakeContextCurrent(window);
+
 		glfwSetWindowUserPointer(window, this);
-		setVsyncEnabled(true);
 		glfwSetKeyCallback(window, keyCallback);
+		glfwSetMouseButtonCallback(window, mouseButtonCallback);
+
+		PrimaryDisplay = window;
 	}
 
 	Window::~Window()
@@ -24,9 +31,10 @@ namespace Engine
 		glfwDestroyWindow(window);
 	}
 
-	void Window::swapBuffers() const
+	void Window::swapBuffers()
 	{
 		glfwSwapBuffers(window);
+		events.clear();
 	}
 
 	void Window::setTitle(const char* title)
@@ -52,10 +60,7 @@ namespace Engine
 
 	void Window::setVsyncEnabled(bool enable)
 	{
-		if (enable)
-			glfwSwapInterval(1); //TODO: Find monitor refresh rate and set the swap interval to that instead
-		else
-			glfwSwapInterval(0);
+		
 	}
 
 	const char* Window::getTitle() const
@@ -73,14 +78,41 @@ namespace Engine
 		return glfwWindowShouldClose(window);
 	}
 
-	void Window::t_pollEvents()
+	const std::vector<Event>& Window::pollEvents()
 	{
 		glfwPollEvents();
+
+		return events;
 	}
 
 	void Window::keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
 	{
+		Event event;
+		if (action == GLFW_PRESS)
+			event.type = EventType::KEY_PRESS;
+		else if (action == GLFW_RELEASE)
+			event.type = EventType::KEY_RELEASE;
+		event.key.code = (Key)key;
+		event.key.alt = isKeyPressed(Key::LEFT_ALT) | isKeyPressed(Key::RIGHT_ALT);
+		event.key.ctrl = isKeyPressed(Key::LEFT_CONTROL) | isKeyPressed(Key::RIGHT_CONTROL);
+		event.key.shift = isKeyPressed(Key::LEFT_SHIFT) | isKeyPressed(Key::RIGHT_SHIFT);
 		
+		Window* w = (Window*)glfwGetWindowUserPointer(window);
+		w->events.push_back(event);
 	}
 
+	void Window::mouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
+	{
+		Event event;
+
+		if (action == GLFW_PRESS)
+			event.type == EventType::MOUSE_BUTTON_PRESS;
+		else if (action == GLFW_RELEASE)
+			event.type == EventType::MOUSE_BUTTON_RELEASE;
+
+		event.mouseButton.btn = (MouseButton)button;
+
+		Window* w = (Window*)glfwGetWindowUserPointer(window);
+		w->events.push_back(event);
+	}
 }

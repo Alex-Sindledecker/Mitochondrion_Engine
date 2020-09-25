@@ -247,6 +247,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Application\Event.h" />
     <ClInclude Include="src\Debug\DebugTools.h" />
     <ClInclude Include="src\Debug\Logging\FileLog.h" />
     <ClInclude Include="src\Core\StringTools.h" />
@@ -264,6 +265,7 @@
     <ClInclude Include="src\Core\UniquePointer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Application\Event.cpp" />
     <ClCompile Include="src\Debug\Logging\FileLog.cpp" />
     <ClCompile Include="src\Core\Time.cpp" />
     <ClCompile Include="src\Debug\Logging\LogTarget.cpp" />

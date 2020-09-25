@@ -18,7 +18,15 @@ public:
 
 		while (!window.isCloseRequested())
 		{
-			window.t_pollEvents();
+			for (Engine::Event event : window.pollEvents())
+			{
+				if (event.type == Engine::EventType::KEY_PRESS && event.key.code == Engine::Key::SPACE)
+					Logger.logMessage("Mouse position: {}, {}", Engine::getMousePos().x, Engine::getMousePos().y);
+			}
+			if (Engine::isKeyPressed(Engine::Key::RIGHT))
+				Logger.logMessage("Right arrow key pressed!");
+
+
 			window.swapBuffers();
 		}
 	}
@@ -26,6 +34,5 @@ public:
 
 Engine::App* Engine::createApp()
 {
-	Logger.logMessage("Hello World!");
 	return new Application();
 }
