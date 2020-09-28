@@ -3,8 +3,8 @@
 #include <Debug/Logging/FileLog.h>
 
 #include <Application/Window.h>
-#include <Core/StackAllocator.h>
-#include <Core/ThreadPool.h>
+#include <CoreTools/StackAllocator.h>
+#include <CoreTools/ThreadPool.h>
 
 #include <iostream>
 
@@ -15,23 +15,17 @@ class Application : public Engine::App
 public:
 	void run() override
 	{
-		Engine::ThreadPool tp(4);
+		Engine::Window window(1280, 720, "Testing...");
 
-		std::future<int> val = tp.enqueue(getValue, 5, 6);
-
-		while (true)
+		while (!window.isCloseRequested())
 		{
-			if (Engine::futureIsReady(val))
-				std::cout << val.get() << std::endl;
+			for (auto event : window.pollEvents())
+			{
 
-			Logger.logMessage("Program running...");
+			}
+
+			window.swapBuffers();
 		}
-	}
-
-	static int getValue(int a, int b)
-	{
-		std::this_thread::sleep_for(Engine::Seconds(5));
-		return a + b;
 	}
 };
 

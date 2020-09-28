@@ -5,63 +5,65 @@
 namespace Engine
 {
 
-	std::mutex DebugLogger::atomicLogMutex;
+	LogTarget* Debug::target;
+	Debug::LogLevel Debug::level;
+	std::mutex Debug::atomicLogMutex;
 
-	DebugLogger& DebugLogger::getInstance()
+	void Debug::init()
 	{
-		static DebugLogger debug;
-		return debug;
+		target = &DebugConsole::getInstance();
+		level = LOG_ALL;
 	}
 
-	void DebugLogger::setTarget(LogTarget* handle)
+	void Debug::setTarget(LogTarget* handle)
 	{
-		if (handle == nullptr)
-			target = &EmptyLogger;
-		else
-			target = handle;
+		target = handle;
 	}
 
-	void DebugLogger::setLevel(LogLevel level)
+	void Debug::setLevel(LogLevel level)
 	{
 		level = level;
 	}
 
-	void DebugLogger::logError(std::string error)
+	void Debug::logError(std::string error)
 	{
-		std::lock_guard<std::mutex> lk(atomicLogMutex);
-
-		if (level & LOG_ERROR)
+		if (target != nullptr)
 		{
-			std::string time = Clock::getGlobalTimeAsMSM();
-			target->logError((time + "(ERROR!) -> " + error).c_str());
+			std::lock_guard<std::mutex> lk(atomicLogMutex);
+
+			if (level & LOG_ERROR)
+			{
+				std::string time = Clock::getGlobalTimeAsMSM();
+				target->logError((time + "(ERROR!) -> " + error).c_str());
+			}
 		}
 	}
 
-	void DebugLogger::logWarning(std::string warning)
+	void Debug::logWarning(std::string warning)
 	{
-		std::lock_guard<std::mutex> lk(atomicLogMutex);
-
-		if (level & LOG_WARNING)
+		if (target != nullptr)
 		{
-			std::string time = Clock::getGlobalTimeAsMSM();
-			target->logWarning((time + "(WARNING!) -> " + warning).c_str());
+			std::lock_guard<std::mutex> lk(atomicLogMutex);
+
+			if (level & LOG_WARNING)
+			{
+				std::string time = Clock::getGlobalTimeAsMSM();
+				target->logWarning((time + "(WARNING!) -> " + warning).c_str());
+			}
 		}
 	}
 
-	void DebugLogger::logMessage(std::string message)
+	void Debug::logMessage(std::string message)
 	{
-		std::lock_guard<std::mutex> lk(atomicLogMutex);
-
-		if (level & LOG_MESSAGE)
+		if (target != nullptr)
 		{
-			std::string time = Clock::getGlobalTimeAsMSM();
-			target->logMessage((time + "(MESSAGE) -> " + message).c_str());
-		}
-	}
+			std::lock_guard<std::mutex> lk(atomicLogMutex);
 
-	DebugLogger::DebugLogger()
-	{
-		target = &DebugConsole::getInstance();
-		level = LOG_ALL;
+			if (level & LOG_MESSAGE)
+			{
+				std::string time = Clock::getGlobalTimeAsMSM();
+				target->logMessage((time + "(MESSAGE) -> " + message).c_str());
+			}
+		}
 	}
 }

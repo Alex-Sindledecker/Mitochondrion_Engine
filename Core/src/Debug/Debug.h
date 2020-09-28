@@ -2,78 +2,87 @@
 
 #include "DebugTools.h"
 #include "Logging/LogTarget.h"
-#include "Core/StringTools.h"
-#include "Core/Time.h"
+#include "CoreTools/StringTools.h"
+#include "CoreTools/Time.h"
 
 #include <mutex>
 
 namespace Engine
 {
 
-	class ENGINE_API DebugLogger
+	class ENGINE_API Debug
 	{
 	public:
-		using LogLevel = int;
-		const int LOG_ALL = 0b0111;
-		const int LOG_ERROR = 0b0001;
-		const int LOG_WARNING = 0b0010;
-		const int LOG_MESSAGE = 0b0100;
+		using LogLevel = u8;
+		const static int LOG_ALL = 0b0111;
+		const static int LOG_ERROR = 0b0001;
+		const static int LOG_WARNING = 0b0010;
+		const static int LOG_MESSAGE = 0b0100;
 
 	public:
-		static DebugLogger& getInstance();
+		static void init();
 
-		void setTarget(LogTarget* handle);
-		void setLevel(LogLevel level);
+		static void setTarget(LogTarget* handle);
+		static void setLevel(LogLevel level);
 
 		template<class... Ts>
-		void logError(std::string error, Ts... args)
+		static void logError(std::string error, Ts... args)
 		{
-			std::lock_guard<std::mutex> lk(atomicLogMutex);
-
-			if (level & LOG_ERROR)
+			if (target != nullptr)
 			{
-				std::string time = Clock::getGlobalTimeAsMSM();
-				target->logError(buildFormattedString(time + "(ERROR!) -> " + error, args...).c_str());
+				std::lock_guard<std::mutex> lk(atomicLogMutex);
+
+				if (level & LOG_ERROR)
+				{
+					std::string time = Clock::getGlobalTimeAsMSM();
+					target->logError(buildFormattedString(time + "(ERROR!) -> " + error, args...).c_str());
+				}
 			}
 		}
 
 		template<class... Ts>
-		void logWarning(std::string warning, Ts... args)
+		static void logWarning(std::string warning, Ts... args)
 		{
-			std::lock_guard<std::mutex> lk(atomicLogMutex);
-
-			if (level & LOG_WARNING)
+			if (target != nullptr)
 			{
-				std::string time = Clock::getGlobalTimeAsMSM();
-				target->logWarning(buildFormattedString(time + "(WARNING!) -> " + warning, args...).c_str());
+				std::lock_guard<std::mutex> lk(atomicLogMutex);
+
+				if (level & LOG_WARNING)
+				{
+					std::string time = Clock::getGlobalTimeAsMSM();
+					target->logWarning(buildFormattedString(time + "(WARNING!) -> " + warning, args...).c_str());
+				}
 			}
 		}
 
 		template<class... Ts>
-		void logMessage(std::string message, Ts... args)
+		static void logMessage(std::string message, Ts... args)
 		{
-			std::lock_guard<std::mutex> lk(atomicLogMutex);
-
-			if (level & LOG_MESSAGE)
+			if (target != nullptr)
 			{
-				std::string time = Clock::getGlobalTimeAsMSM();
-				target->logMessage(buildFormattedString(time + "(MESSAGE) -> " + message, args...).c_str());
+				std::lock_guard<std::mutex> lk(atomicLogMutex);
+
+				if (level & LOG_MESSAGE)
+				{
+					std::string time = Clock::getGlobalTimeAsMSM();
+					target->logMessage(buildFormattedString(time + "(MESSAGE) -> " + message, args...).c_str());
+				}
 			}
 		}
 
-		void logError(std::string error);
-		void logWarning(std::string warning);
-		void logMessage(std::string message);
+		static void logError(std::string error);
+		static void logWarning(std::string warning);
+		static void logMessage(std::string message);
 
-		DebugLogger(const DebugLogger&) = delete;
-		void operator=(const DebugLogger&) = delete;
+		Debug(const Debug&) = delete;
+		void operator=(const Debug&) = delete;
 
 	private:
-		DebugLogger();
-		~DebugLogger() {}
+		Debug();
+		~Debug() {}
 
-		LogTarget* target;
-		LogLevel level;
+		static LogTarget* target;
+		static LogLevel level;
 		static std::mutex atomicLogMutex;
 	};
 

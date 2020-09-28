@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "Window.h"
-#include "Debug/DebugTools.h"
+#include "Debug/Debug.h"
 
 namespace Engine
 {
@@ -17,6 +17,10 @@ namespace Engine
 			window = glfwCreateWindow(width, height, title, glfwGetPrimaryMonitor(), nullptr);
 		else
 			window = glfwCreateWindow(width, height, title, nullptr, nullptr);
+
+		if (window == nullptr)
+			Debug::logError("GLFW Window creation failed! window == nullptr!");
+
 		glfwMakeContextCurrent(window);
 
 		glfwSetWindowUserPointer(window, this);

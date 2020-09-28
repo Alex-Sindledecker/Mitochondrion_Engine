@@ -250,26 +250,25 @@
     <ClInclude Include="src\Application\Event.h" />
     <ClInclude Include="src\Debug\DebugTools.h" />
     <ClInclude Include="src\Debug\Logging\FileLog.h" />
-    <ClInclude Include="src\Core\StringTools.h" />
-    <ClInclude Include="src\Core\Time.h" />
+    <ClInclude Include="src\CoreTools\StringTools.h" />
+    <ClInclude Include="src\CoreTools\Time.h" />
     <ClInclude Include="src\Debug\Logging\LogTarget.h" />
     <ClInclude Include="src\Debug\Debug.h" />
     <ClInclude Include="src\Debug\Logging\DebugConsole.h" />
     <ClInclude Include="src\Application\App.h" />
-    <ClInclude Include="src\Core\Core.h" />
+    <ClInclude Include="src\Core.h" />
     <ClInclude Include="src\Application\EntryPoint.h" />
     <ClInclude Include="src\Engine.h" />
     <ClInclude Include="src\pch.h" />
     <ClInclude Include="src\Application\Window.h" />
-    <ClInclude Include="src\Core\StackAllocator.h" />
-    <ClInclude Include="src\Core\UniquePointer.h" />
-    <ClInclude Include="src\Core\ThreadPool.h" />
+    <ClInclude Include="src\CoreTools\StackAllocator.h" />
+    <ClInclude Include="src\CoreTools\UniquePointer.h" />
+    <ClInclude Include="src\CoreTools\ThreadPool.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application\Event.cpp" />
     <ClCompile Include="src\Debug\Logging\FileLog.cpp" />
-    <ClCompile Include="src\Core\Time.cpp" />
-    <ClCompile Include="src\Debug\Logging\LogTarget.cpp" />
+    <ClCompile Include="src\CoreTools\Time.cpp" />
     <ClCompile Include="src\Debug\Debug.cpp" />
     <ClCompile Include="src\Debug\Logging\DebugConsole.cpp" />
     <ClCompile Include="src\Application\App.cpp" />
@@ -294,8 +293,8 @@
       </PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="src\Application\Window.cpp" />
-    <ClCompile Include="src\Core\StackAllocator.cpp" />
-    <ClCompile Include="src\Core\ThreadPool.cpp" />
+    <ClCompile Include="src\CoreTools\StackAllocator.cpp" />
+    <ClCompile Include="src\CoreTools\ThreadPool.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
