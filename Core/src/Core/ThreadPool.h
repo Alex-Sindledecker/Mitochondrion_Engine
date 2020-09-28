@@ -12,6 +12,12 @@
 namespace Engine
 {
 
+	template<class T>
+	static bool futureIsReady(std::future<T>& f)
+	{
+		return f.valid() && f.wait_for(std::chrono::seconds(0)) == std::future_status::ready;
+	}
+
 	class ENGINE_API ThreadPool
 	{
 	public:
@@ -20,19 +26,21 @@ namespace Engine
 		ThreadPool(size_t size);
 		~ThreadPool();
 
-		void enqueue(Task task);
-
 		template<class T, class... Ts>
-		std::future<T> enqueue(std::function<T(Ts...)> task, Ts... args)
+		auto enqueue(T task, Ts... args) -> std::future<decltype(task(args...))>
 		{
-			auto wrapper = std::make_shared<std::packaged_task<T()>>(std::move(task));
+			auto wrapper = std::make_shared<std::packaged_task<decltype(task(args...))(Ts...)>>(std::move(task));
 
-			enqueue([=] {
-				(*wrapper)(args...);
-			});
+			{
+				std::lock_guard<std::mutex> lk(mutex);
+				tasks.push([=] { (*wrapper)(args...); });
+			}
+			cv.notify_one();
 
 			return wrapper->get_future();
 		}
+
+		inline const unsigned int getTaskCount() { return tasks.size(); }
 
 	private:
 		std::vector<std::thread> threads;

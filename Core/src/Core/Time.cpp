@@ -31,9 +31,9 @@ namespace Engine
 		auto elapsed = std::chrono::high_resolution_clock::now() - start;
 		int min = std::chrono::duration_cast<Minutes>(elapsed).count();
 		int sec = std::chrono::duration_cast<Seconds>(elapsed).count();
-		double nan = std::chrono::duration_cast<std::chrono::nanoseconds>(elapsed).count() % 1000000;
+		double mil = std::chrono::duration_cast<Nanoseconds>(elapsed).count() / 1000000.0;
 
-		return buildFormattedString("[{}m:{}s:{}ms]", min, sec % 60, nan / (double)1000000);
+		return buildFormattedString("[{}m:{}s:{}ms]", min, sec % 60, fmod(mil, 1000.0));
 	}
 
 	void Clock::restart()

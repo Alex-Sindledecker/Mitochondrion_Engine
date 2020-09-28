@@ -36,13 +36,4 @@ namespace Engine
 			t.join();
 	}
 
-	void ThreadPool::enqueue(Task task)
-	{
-		{
-			std::lock_guard<std::mutex> lk(mutex);
-			tasks.push(task);
-		}
-		cv.notify_one();
-	}
-
 }
