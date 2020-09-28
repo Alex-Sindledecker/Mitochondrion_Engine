@@ -11,6 +11,7 @@ namespace Engine
 	using Seconds = std::chrono::seconds;
 	using Milliseconds = std::chrono::milliseconds;
 	using Microseconds = std::chrono::microseconds;
+	using Nanoseconds = std::chrono::nanoseconds;
 	using TimeStamp = std::chrono::high_resolution_clock::time_point;
 
 	class ENGINE_API Clock

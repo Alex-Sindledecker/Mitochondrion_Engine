@@ -5,6 +5,8 @@
 #include "Core/StringTools.h"
 #include "Core/Time.h"
 
+#include <mutex>
+
 namespace Engine
 {
 
@@ -26,6 +28,8 @@ namespace Engine
 		template<class... Ts>
 		void logError(std::string error, Ts... args)
 		{
+			std::lock_guard<std::mutex> lk(atomicLogMutex);
+
 			if (level & LOG_ERROR)
 			{
 				std::string time = Clock::getGlobalTimeAsMSM();
@@ -36,6 +40,8 @@ namespace Engine
 		template<class... Ts>
 		void logWarning(std::string warning, Ts... args)
 		{
+			std::lock_guard<std::mutex> lk(atomicLogMutex);
+
 			if (level & LOG_WARNING)
 			{
 				std::string time = Clock::getGlobalTimeAsMSM();
@@ -46,12 +52,18 @@ namespace Engine
 		template<class... Ts>
 		void logMessage(std::string message, Ts... args)
 		{
+			std::lock_guard<std::mutex> lk(atomicLogMutex);
+
 			if (level & LOG_MESSAGE)
 			{
 				std::string time = Clock::getGlobalTimeAsMSM();
 				target->logMessage(buildFormattedString(time + "(MESSAGE) -> " + message, args...).c_str());
 			}
 		}
+
+		void logError(std::string error);
+		void logWarning(std::string warning);
+		void logMessage(std::string message);
 
 		DebugLogger(const DebugLogger&) = delete;
 		void operator=(const DebugLogger&) = delete;
@@ -62,6 +74,7 @@ namespace Engine
 
 		LogTarget* target;
 		LogLevel level;
+		static std::mutex atomicLogMutex;
 	};
 
 }

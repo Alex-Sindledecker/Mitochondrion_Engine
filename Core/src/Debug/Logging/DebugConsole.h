@@ -21,7 +21,7 @@ namespace Engine
 		DebugConsole() {}
 		~DebugConsole() {}
 
-		static void log(const char* msg);
+		static void log(const char* msg, u8 color = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
 		static void setTextColor(int color);
 	};
 
