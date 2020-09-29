@@ -8,6 +8,16 @@ namespace Engine
 
 	constexpr u8 eventQueueCapactiy = 20;
 
+	void Window::init()
+	{
+		glfwInit();
+	}
+
+	void Window::terminate()
+	{
+		glfwTerminate();
+	}
+
 	Window::Window(u16 width, u16 height, const char* title, bool fullscreen)
 		: events(eventQueueCapactiy)
 	{

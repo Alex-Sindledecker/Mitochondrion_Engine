@@ -10,26 +10,27 @@
 
 //TODO: Game loop. Add both fixed timesteps and non-fixed time steps
 
-class Application : public Engine::App
+int main(int argc, char** argv)
 {
-public:
-	void run() override
+	//Initialize core systems
+	Engine::Debug::init();
+	Engine::Window::init();
+
+	Engine::Window window(1280, 720, "Testing...");
+
+	while (!window.isCloseRequested())
 	{
-		Engine::Window window(1280, 720, "Testing...");
-
-		while (!window.isCloseRequested())
+		for (const auto& event : window.pollEvents())
 		{
-			for (auto event : window.pollEvents())
-			{
 
-			}
-
-			window.swapBuffers();
 		}
-	}
-};
 
-Engine::App* Engine::createApp()
-{
-	return new Application();
+		window.swapBuffers();
+	}
+
+
+	//Terminate core systems
+	Engine::Window::terminate();
+
+	return 0;
 }

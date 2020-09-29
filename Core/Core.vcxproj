@@ -255,9 +255,7 @@
     <ClInclude Include="src\Debug\Logging\LogTarget.h" />
     <ClInclude Include="src\Debug\Debug.h" />
     <ClInclude Include="src\Debug\Logging\DebugConsole.h" />
-    <ClInclude Include="src\Application\App.h" />
     <ClInclude Include="src\Core.h" />
-    <ClInclude Include="src\Application\EntryPoint.h" />
     <ClInclude Include="src\Engine.h" />
     <ClInclude Include="src\pch.h" />
     <ClInclude Include="src\Application\Window.h" />
@@ -271,7 +269,6 @@
     <ClCompile Include="src\CoreTools\Time.cpp" />
     <ClCompile Include="src\Debug\Debug.cpp" />
     <ClCompile Include="src\Debug\Logging\DebugConsole.cpp" />
-    <ClCompile Include="src\Application\App.cpp" />
     <ClCompile Include="src\pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

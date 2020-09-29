@@ -22,8 +22,8 @@ namespace Engine
 	public:
 		static void init();
 
-		static void setTarget(LogTarget* handle);
-		static void setLevel(LogLevel level);
+		static void setLogTarget(LogTarget* handle);
+		static void setLogLevel(LogLevel level);
 
 		template<class... Ts>
 		static void logError(std::string error, Ts... args)

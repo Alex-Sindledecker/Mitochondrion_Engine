@@ -15,12 +15,12 @@ namespace Engine
 		level = LOG_ALL;
 	}
 
-	void Debug::setTarget(LogTarget* handle)
+	void Debug::setLogTarget(LogTarget* handle)
 	{
 		target = handle;
 	}
 
-	void Debug::setLevel(LogLevel level)
+	void Debug::setLogLevel(LogLevel level)
 	{
 		level = level;
 	}

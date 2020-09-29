@@ -17,6 +17,9 @@ namespace Engine
 	class ENGINE_API Window
 	{
 	public:
+		static void init();
+		static void terminate();
+
 		Window(u16 width, u16 height, const char* title, bool fullscreen = false);
 		virtual ~Window();
 
