@@ -6,6 +6,9 @@
 #include <GLFW/glfw3.h>
 #include <vector>
 
+#define ENGINE_GL_WINDOW 0
+#define ENGINE_VK_WINDOW 1
+
 namespace Engine
 {
 
@@ -17,12 +20,14 @@ namespace Engine
 	class ENGINE_API Window
 	{
 	public:
-		static void init();
+		static void init(int api);
 		static void terminate();
+		static GLFWglproc getGLLoadProc(const char* procname);
+		static GLFWvkproc getVKLoadProc(const char* procname);
 
 		Window(u16 width, u16 height, const char* title, bool fullscreen = false);
 		virtual ~Window();
-
+		
 		void swapBuffers();
 		void setTitle(const char* title);
 		void setSize(u16 width, u16 height);

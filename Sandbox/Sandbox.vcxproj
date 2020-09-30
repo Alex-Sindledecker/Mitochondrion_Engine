@@ -165,7 +165,7 @@
       <PreprocessorDefinitions>ENGINE_IMPORT;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)Core\src\;$(SolutionDir)Core\vendor\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Core\src\;$(SolutionDir)Core\vendor\include\;$(SolutionDir)Renderer\src\;$(SolutionDir)Renderer\vendor\include\;$(SolutionDir)Core\vendor\include\;%(AdditionalIncludeDirectories);$(SolutionDir)Renderer\src\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -202,7 +202,7 @@
       <PreprocessorDefinitions>ENGINE_IMPORT;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)Core\src\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Core\src\;$(SolutionDir)Core\vendor\include\;$(SolutionDir)Renderer\src\;$(SolutionDir)Renderer\vendor\include\;%(AdditionalIncludeDirectories);$(SolutionDir)Renderer\src\</AdditionalIncludeDirectories>
       <Optimization>Custom</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
@@ -223,7 +223,7 @@
       <PreprocessorDefinitions>ENGINE_IMPORT;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)Core\src\;$(SolutionDir)Core\vendor\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Core\src\;$(SolutionDir)Core\vendor\include\;$(SolutionDir)Renderer\src\;$(SolutionDir)Renderer\vendor\include\;$(SolutionDir)Core\vendor\include\;%(AdditionalIncludeDirectories);$(SolutionDir)Renderer\src\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -241,7 +241,7 @@
       <PreprocessorDefinitions>ENGINE_IMPORT;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)Core\src\;$(SolutionDir)Core\vendor\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Core\src\;$(SolutionDir)Core\vendor\include\;$(SolutionDir)Renderer\src\;$(SolutionDir)Renderer\vendor\include\;$(SolutionDir)Core\vendor\include\;%(AdditionalIncludeDirectories);$(SolutionDir)Renderer\src\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -278,7 +278,7 @@
       <PreprocessorDefinitions>ENGINE_IMPORT;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)Core\src\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Core\src\;$(SolutionDir)Core\vendor\include\;$(SolutionDir)Renderer\src\;$(SolutionDir)Renderer\vendor\include\;%(AdditionalIncludeDirectories);$(SolutionDir)Renderer\src\</AdditionalIncludeDirectories>
       <Optimization>Custom</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
@@ -299,7 +299,7 @@
       <PreprocessorDefinitions>ENGINE_IMPORT;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)Core\src\;$(SolutionDir)Core\vendor\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Core\src\;$(SolutionDir)Core\vendor\include\;$(SolutionDir)Renderer\src\;$(SolutionDir)Renderer\vendor\include\;$(SolutionDir)Core\vendor\include\;%(AdditionalIncludeDirectories);$(SolutionDir)Renderer\src\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -316,6 +316,9 @@
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.vcxproj">
       <Project>{1d8b7a62-71a0-4410-afc5-3d6653cd9e68}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Renderer\Renderer.vcxproj">
+      <Project>{6b55f19b-eaf7-4a2f-886c-f5da080bb5cf}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -1,10 +1,5 @@
 #include <Engine.h>
-#include <Debug/Debug.h>
-#include <Debug/Logging/FileLog.h>
-
-#include <Application/Window.h>
-#include <CoreTools/StackAllocator.h>
-#include <CoreTools/ThreadPool.h>
+#include <Renderer.h>
 
 #include <iostream>
 
@@ -12,11 +7,13 @@
 
 int main(int argc, char** argv)
 {
-	//Initialize core systems
+	//Initialize core systems and create window
 	Engine::Debug::init();
-	Engine::Window::init();
-
+	Engine::Window::init(ENGINE_GL_WINDOW);
 	Engine::Window window(1280, 720, "Testing...");
+	Engine::PipelineInitStatus renderPipelineStatus = Engine::Renderer::initForGLPipeline(Engine::Window::getGLLoadProc);
+	if (renderPipelineStatus.code == RENDER_PIPELINE_INIT_FAILURE)
+		Engine::Debug::logError(renderPipelineStatus.string);
 
 	while (!window.isCloseRequested())
 	{

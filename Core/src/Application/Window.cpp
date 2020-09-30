@@ -8,14 +8,34 @@ namespace Engine
 
 	constexpr u8 eventQueueCapactiy = 20;
 
-	void Window::init()
+	void Window::init(int api)
 	{
 		glfwInit();
+		if (api == ENGINE_GL_WINDOW)
+		{
+			glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+			glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
+			glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+		}
+		else if (api == ENGINE_VK_WINDOW)
+		{
+
+		}
 	}
 
 	void Window::terminate()
 	{
 		glfwTerminate();
+	}
+
+	GLFWglproc Window::getGLLoadProc(const char* procname)
+	{
+		return glfwGetProcAddress(procname);
+	}
+
+	GLFWvkproc Window::getVKLoadProc(const char* procname)
+	{
+		return glfwGetProcAddress(procname);
 	}
 
 	Window::Window(u16 width, u16 height, const char* title, bool fullscreen)
