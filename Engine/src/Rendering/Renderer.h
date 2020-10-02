@@ -25,11 +25,11 @@ namespace Engine
 	class Renderer
 	{
 	public:
-		typedef void(*GLProcFunc)();
-		typedef GLProcFunc(*GLLoadProc)(const char* name);
+		typedef void(*ProcFunc)();
+		typedef ProcFunc(*LoadProc)(const char* name);
 	public:
-		static PipelineInitStatus initForGLPipeline(GLLoadProc winProcAddr);
-		static PipelineInitStatus initForVKPipeline();
+		static PipelineInitStatus init(LoadProc winProcFunc);
+		static void terminate();
 
 		static void clearActiveFramebuffer(BitField flags = CL_COLOR_BUFFER_FLAG);
 		static void setNormalizedClearColorRGB(const float r, const float g, const float b);
@@ -39,6 +39,9 @@ namespace Engine
 		void operator=(const Renderer&) = delete;
 
 	private:
+		static PipelineInitStatus initVK();
+		static PipelineInitStatus initGL(LoadProc winProcFunc);
+
 		Renderer() {}
 		~Renderer() {}
 	};

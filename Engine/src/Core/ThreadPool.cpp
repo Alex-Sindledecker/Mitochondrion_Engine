@@ -4,9 +4,19 @@
 namespace Engine
 {
 
-	ThreadPool::ThreadPool(size_t size, bool finishTasks)
+	ThreadPool::ThreadPool(size_t size)
 	{
-		this->finishTasks = finishTasks;
+		start(size);
+	}
+
+	ThreadPool::~ThreadPool()
+	{
+		if (!drain)
+			finish();
+	}
+
+	void ThreadPool::start(size_t size)
+	{
 		for (int i = 0; i < size; i++)
 		{
 			threads.emplace_back([=] {
@@ -18,7 +28,7 @@ namespace Engine
 
 						cv.wait(lk, [=] { return drain || !tasks.empty(); });
 
-						if (drain && (tasks.empty() || !finishTasks))
+						if (drain && tasks.empty())
 							return;
 
 						task = std::move(tasks.front());
@@ -30,7 +40,7 @@ namespace Engine
 		}
 	}
 
-	ThreadPool::~ThreadPool()
+	void ThreadPool::finish()
 	{
 		drain = true;
 		cv.notify_all();

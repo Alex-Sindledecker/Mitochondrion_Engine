@@ -324,6 +324,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Core\FileManager.cpp" />
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\Core\StackAllocator.cpp" />
     <ClCompile Include="src\Core\ThreadPool.cpp" />
@@ -331,7 +332,8 @@
     <ClCompile Include="src\Debug\Debug.cpp" />
     <ClCompile Include="src\Debug\Logging\DebugConsole.cpp" />
     <ClCompile Include="src\Debug\Logging\FileLog.cpp" />
-    <ClCompile Include="src\Event.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\WindowInterface\Event.cpp" />
     <ClCompile Include="src\pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Dev|Win32'">Create</PrecompiledHeader>
@@ -343,7 +345,7 @@
     <ClCompile Include="src\Rendering\Renderer.cpp" />
     <ClCompile Include="src\Rendering\Renderers\Renderer2D.cpp" />
     <ClCompile Include="src\Rendering\Renderers\Renderer3D.cpp" />
-    <ClCompile Include="src\Window.cpp" />
+    <ClCompile Include="src\WindowInterface\Window.cpp" />
     <ClCompile Include="vendor\include\glad.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Dev|Win32'">NotUsing</PrecompiledHeader>
@@ -402,6 +404,8 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Application.h" />
+    <ClInclude Include="src\Core\FileManager.h" />
     <ClInclude Include="src\Core.h" />
     <ClInclude Include="src\Core\StackAllocator.h" />
     <ClInclude Include="src\Core\StringTools.h" />
@@ -413,12 +417,12 @@
     <ClInclude Include="src\Debug\Logging\DebugConsole.h" />
     <ClInclude Include="src\Debug\Logging\FileLog.h" />
     <ClInclude Include="src\Debug\Logging\LogTarget.h" />
-    <ClInclude Include="src\Event.h" />
+    <ClInclude Include="src\WindowInterface\Event.h" />
     <ClInclude Include="src\pch.h" />
     <ClInclude Include="src\Rendering\Renderer.h" />
     <ClInclude Include="src\Rendering\Renderers\Renderer2D.h" />
     <ClInclude Include="src\Rendering\Renderers\Renderer3D.h" />
-    <ClInclude Include="src\Window.h" />
+    <ClInclude Include="src\WindowInterface\Window.h" />
     <ClInclude Include="vendor\include\imgui\imconfig.h" />
     <ClInclude Include="vendor\include\imgui\imgui.h" />
     <ClInclude Include="vendor\include\imgui\imgui_impl_glfw.h" />

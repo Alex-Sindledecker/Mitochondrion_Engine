@@ -23,8 +23,12 @@ namespace Engine
 	public:
 		using Task = std::function<void()>;
 	public:
-		ThreadPool(size_t size, bool finishTasks = true);
+		ThreadPool() {}
+		ThreadPool(size_t size);
 		~ThreadPool();
+
+		void start(size_t size);
+		void finish();
 
 		template<class T, class... Ts>
 		auto enqueue(T task, Ts... args) -> std::future<decltype(task(args...))>
@@ -49,7 +53,6 @@ namespace Engine
 		std::mutex mutex;
 		std::condition_variable cv;
 		std::atomic<bool> drain = false;
-		bool finishTasks = true;
 	};
 
 }

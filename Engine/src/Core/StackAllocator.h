@@ -29,6 +29,7 @@ namespace Engine
 			return UniquePtr<Ty>(t, JanitorType::DESTROY_DATA);
 		}
 
+		void clear();
 		inline void freeToMarker(Marker marker);
 		void setCapacity(u32 newCap);
 		u8* getDataPtr() const;

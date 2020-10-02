@@ -37,6 +37,11 @@ namespace Engine
 		delete[] data;
 	}
 
+	void StackAllocator::clear()
+	{
+		head = 0;
+	}
+
 	inline void StackAllocator::freeToMarker(Marker marker)
 	{
 		head = marker;

@@ -21,6 +21,7 @@ namespace Engine
 
 	public:
 		static void init();
+		static void terminate();
 
 		static void setLogTarget(LogTarget* handle);
 		static void setLogLevel(LogLevel level);

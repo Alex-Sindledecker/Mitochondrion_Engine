@@ -1,81 +1,138 @@
 #include "pch.h"
+#include "Application.h"
 
-#include <glad/glad.h>
 #include <imgui.h>
 #include <imgui_impl_glfw.h>
 #include <imgui_impl_opengl3.h>
 
-#include "Window.h"
-#include "Core/ThreadPool.h"
-#include "Debug/Debug.h"
-#include "Rendering/Renderer.h"
-
-#include <iostream>
-
-//TODO: Game loop. Add both fixed timesteps and non-fixed time steps
-
-std::mutex m;
-
-struct Color
+namespace Engine
 {
-	Engine::u8 r, g, b;
-};
 
-int main(int argc, char** argv)
-{
-	//Initialize core systems and create window
-	Engine::Debug::init();
-	Window::init(ENGINE_GL_WINDOW);
-	Window window(1280, 720, "Testing...");
-	Engine::PipelineInitStatus renderPipelineStatus = Engine::Renderer::initForGLPipeline(Window::getGLLoadProc);
-	if (renderPipelineStatus.code != RENDER_PIPELINE_INIT_SUCCESS)
-		Engine::Debug::logError(renderPipelineStatus.string);
+	Window Application::window;
+	ThreadPool Application::asyncTaskManager;
+	StackAllocator Application::singleFrameStack;
+	std::mutex Application::physicsAccessMutex;
 
-	IMGUI_CHECKVERSION();
-	ImGui::CreateContext();
-	ImGuiIO& io = ImGui::GetIO(); (void)io;
-
-	ImGui::StyleColorsDark();
-
-	const char* v = "#version 410";
-	ImGui_ImplGlfw_InitForOpenGL(window.getPtr(), true);
-	ImGui_ImplOpenGL3_Init(v);
-
-	bool show_demo_window = true;
-	bool show_another_window = false;
-	ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
-
-	Engine::Renderer::setClearColorRGB(0, 0, 0);
-	while (!window.isCloseRequested())
+	void Application::init()
 	{
-		for (const auto& event : window.pollEvents())
+		asyncTaskManager.start(7);
+		window.create(1280, 720, "Engine");
+	
+		IMGUI_CHECKVERSION();
+		ImGui::CreateContext();
+		ImGui::StyleColorsDark();
+	}
+
+	void Application::terminate()
+	{
+		ImGui_ImplOpenGL3_Shutdown();
+		ImGui_ImplGlfw_Shutdown();
+		ImGui::DestroyContext();
+
+		asyncTaskManager.finish();
+	}
+
+	Window Application::getWindow()
+	{
+		return window;
+	}
+
+	void Application::run()
+	{
+		ImGui_ImplGlfw_InitForOpenGL(window.getPtr(), true);
+		ImGui_ImplOpenGL3_Init("#version 410");
+
+		loadDependencies();
+
+		asyncTaskManager.enqueue(runPhysics);
+
+		Engine::Renderer::setNormalizedClearColorRGB(screenColor[0], screenColor[1], screenColor[2]);
+		while (!window.isCloseRequested())
 		{
-			if (event.type == EventType::KEY_RELEASE && event.key.code == Key::ESCAPE)
-				window.close();
+			singleFrameStack.clear();
+
+			handleEvents();
+
+			Engine::Renderer::clearActiveFramebuffer();
+			beginFrame();
+			endFrame();
+			window.swapBuffers();
 		}
+	}
 
-		Engine::Renderer::clearActiveFramebuffer();
+	void Application::setStaticTickRate(float ms)
+	{
+	}
 
+	void Application::loadDependencies()
+	{
+	}
+
+	void Application::beginFrame()
+	{
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
 
-		if (show_demo_window)
-			ImGui::ShowDemoWindow(&show_demo_window);
-
-		ImGui::Render();
-
-		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-
-		window.swapBuffers();
+		std::lock_guard<std::mutex> lk(physicsAccessMutex);
+		processGame();
+		processGui();
 	}
 
-	ImGui_ImplOpenGL3_Shutdown();
-	ImGui_ImplGlfw_Shutdown();
-	ImGui::DestroyContext();
+	void Application::endFrame()
+	{
+		renderGame();
+		renderGui();
+	}
 
-	//Terminate core systems
-	Window::terminate();
+	void Application::handleEvents()
+	{
+		for (const auto& event : window.pollEvents())
+		{
+			if (event.type == Engine::EventType::KEY_RELEASE && event.key.code == Engine::Key::ESCAPE)
+				window.close();
+		}
+	}
 
-	return 0;
+	void Application::processGame()
+	{
+	}
+
+	void Application::renderGame()
+	{
+	}
+
+	static float screenColor[4] = { 0.109, 0.222, 0.386 };
+	void Application::processGui()
+	{
+		ImGui::Begin("Display Properties", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
+
+		if (ImGui::ColorEdit3("Clear Color", screenColor))
+		{
+			Engine::Renderer::setNormalizedClearColorRGB(screenColor[0], screenColor[1], screenColor[2]);
+		}
+		static bool loadModelButtonWasPressed = false;
+		if (ImGui::Button("Load Model") || loadModelButtonWasPressed)
+		{
+			loadModelButtonWasPressed = true;
+			ImGui::Begin("File Select", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
+			ImGui::Text("Hello");
+			ImGui::Indent();
+			ImGui::Text("World");
+			ImGui::End();
+		}
+
+		ImGui::End();
+	}
+
+	void Application::renderGui()
+	{
+		ImGui::Render();
+		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+	}
+
+	void Application::runPhysics()
+	{
+	}
+
 }
