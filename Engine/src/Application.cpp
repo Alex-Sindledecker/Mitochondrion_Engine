@@ -14,7 +14,7 @@ namespace Engine
 	void Application::init()
 	{
 		asyncTaskManager.start(7);
-		window.create(1280, 720, "Engine");
+		window.create(1000, 1000, "Engine");
 	}
 
 	void Application::terminate()
