@@ -10,7 +10,7 @@
 namespace Engine
 {
 
-	using BitField = u32;
+	using BitField = u32_t;
 
 	struct PipelineInitStatus
 	{
@@ -33,7 +33,7 @@ namespace Engine
 
 		static void clearActiveFramebuffer(BitField flags = CL_COLOR_BUFFER_FLAG);
 		static void setNormalizedClearColorRGB(const float r, const float g, const float b);
-		static void setClearColorRGB(const u8 r, const u8 g, const u8 b);
+		static void setClearColorRGB(const u8_t r, const u8_t g, const u8_t b);
 
 		Renderer(const Renderer&) = delete;
 		void operator=(const Renderer&) = delete;

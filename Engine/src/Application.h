@@ -7,6 +7,8 @@
 #include "Core/ThreadPool.h"
 #include "Core/StackAllocator.h"
 
+#include "Layers/Layer.h"
+
 namespace Engine
 {
 
@@ -18,6 +20,7 @@ namespace Engine
 
 		static Window getWindow();
 		static void run();
+		static void pushLayer(const char* name, Layer* layer);
 		static void setStaticTickRate(float ms);
 
 		Application(const Application&) = delete;
@@ -31,16 +34,14 @@ namespace Engine
 		static void beginFrame();
 		static void endFrame();
 		static void handleEvents();
-		static void processGame();
-		static void renderGame();
-		static void processGui();
-		static void renderGui();
 		static void runPhysics();
 
 		static Window window;
 		static ThreadPool asyncTaskManager;
 		static StackAllocator singleFrameStack;
 		static std::mutex physicsAccessMutex;
+		static std::unordered_map<const char*, Layer*> layers;
+		static Clock mainLoopClock;
 	};
 
 }

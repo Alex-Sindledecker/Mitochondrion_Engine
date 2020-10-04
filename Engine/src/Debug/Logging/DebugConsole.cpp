@@ -25,7 +25,7 @@ namespace Engine
 		return instance;
 	}
 
-	void DebugConsole::log(const char* msg, u8 color)
+	void DebugConsole::log(const char* msg, u8_t color)
 	{
 		setTextColor(color);
 		std::cout << msg << std::endl;

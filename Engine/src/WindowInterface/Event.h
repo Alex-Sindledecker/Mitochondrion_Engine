@@ -16,7 +16,7 @@ namespace Engine
 	/*
 	* Keys that are located on a standard American keyboard
 	*/
-	enum class Key : u32
+	enum class Key : u32_t
 	{
 		//The values assosiated with the keys are meant to match their glfw equivalants
 
@@ -51,7 +51,7 @@ namespace Engine
 		RIGHT_CONTROL = 345, RIGHT_ALT = 346, RIGHT_SUPER = 347, MENU = 348,
 	};
 
-	enum class MouseButton : u32
+	enum class MouseButton : u32_t
 	{
 		LEFT = 0, RIGHT, MIDDLE, BUTTON1, BUTTON2, BUTTON3, BUTTON4, BUTTON8
 	};
@@ -80,7 +80,7 @@ namespace Engine
 
 	struct WindowResizeEvent
 	{
-		u32 width, height;
+		u32_t width, height;
 	};
 
 	struct Event

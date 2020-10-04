@@ -8,7 +8,7 @@ namespace Engine
 
 	GLFWwindow* PrimaryDisplay;
 
-	constexpr u32 eventQueueCapactiy = 20;
+	constexpr u32_t eventQueueCapactiy = 20;
 
 	GLFWglproc Window::getGLLoadProc(const char* procname)
 	{
@@ -20,7 +20,7 @@ namespace Engine
 		return glfwGetProcAddress(procname);
 	}
 
-	void Window::create(u32 width, u32 height, const char* title, bool fullscreen)
+	void Window::create(u32_t width, u32_t height, const char* title, bool fullscreen)
 	{
 		glfwInit();
 
@@ -31,7 +31,7 @@ namespace Engine
 		#endif
 	}
 
-	Window::Window(u32 width, u32 height, const char* title, bool fullscreen)
+	Window::Window(u32_t width, u32_t height, const char* title, bool fullscreen)
 		: events(eventQueueCapactiy)
 	{
 		glfwInit();
@@ -70,7 +70,7 @@ namespace Engine
 		this->title = title;
 	}
 
-	void Window::setSize(u32 width, u32 height)
+	void Window::setSize(u32_t width, u32_t height)
 	{
 		viewport.w = width;
 		viewport.h = height;

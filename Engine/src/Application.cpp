@@ -1,10 +1,6 @@
 #include "pch.h"
 #include "Application.h"
 
-#include <imgui.h>
-#include <imgui_impl_glfw.h>
-#include <imgui_impl_opengl3.h>
-
 namespace Engine
 {
 
@@ -12,22 +8,21 @@ namespace Engine
 	ThreadPool Application::asyncTaskManager;
 	StackAllocator Application::singleFrameStack;
 	std::mutex Application::physicsAccessMutex;
+	std::unordered_map<const char*, Layer*> Application::layers;
+	Clock Application::mainLoopClock;
 
 	void Application::init()
 	{
 		asyncTaskManager.start(7);
 		window.create(1280, 720, "Engine");
-	
-		IMGUI_CHECKVERSION();
-		ImGui::CreateContext();
-		ImGui::StyleColorsDark();
 	}
 
 	void Application::terminate()
 	{
-		ImGui_ImplOpenGL3_Shutdown();
-		ImGui_ImplGlfw_Shutdown();
-		ImGui::DestroyContext();
+		for (std::pair<const char*, Layer*> pair : layers)
+		{
+			pair.second->onClose();
+		}
 
 		asyncTaskManager.finish();
 	}
@@ -39,14 +34,10 @@ namespace Engine
 
 	void Application::run()
 	{
-		ImGui_ImplGlfw_InitForOpenGL(window.getPtr(), true);
-		ImGui_ImplOpenGL3_Init("#version 410");
-
 		loadDependencies();
 
 		asyncTaskManager.enqueue(runPhysics);
 
-		Engine::Renderer::setNormalizedClearColorRGB(screenColor[0], screenColor[1], screenColor[2]);
 		while (!window.isCloseRequested())
 		{
 			singleFrameStack.clear();
@@ -60,29 +51,40 @@ namespace Engine
 		}
 	}
 
+	void Application::pushLayer(const char* name, Layer* layer)
+	{
+		layers[name] = layer;
+	}
+
 	void Application::setStaticTickRate(float ms)
 	{
 	}
 
 	void Application::loadDependencies()
 	{
+		for (std::pair<const char*, Layer*> pair : layers)
+		{
+			pair.second->window = &window;
+			pair.second->onLoad();
+		}
 	}
 
 	void Application::beginFrame()
 	{
-		ImGui_ImplOpenGL3_NewFrame();
-		ImGui_ImplGlfw_NewFrame();
-		ImGui::NewFrame();
-
-		std::lock_guard<std::mutex> lk(physicsAccessMutex);
-		processGame();
-		processGui();
+		float dt = mainLoopClock.tick();
+		for (std::pair<const char*, Layer*> pair : layers)
+		{
+			pair.second->deltaTime = dt;
+			pair.second->onFrameStart();
+		}
 	}
 
 	void Application::endFrame()
 	{
-		renderGame();
-		renderGui();
+		for (std::pair<const char*, Layer*> pair : layers)
+		{
+			pair.second->onFrameEnd();
+		}
 	}
 
 	void Application::handleEvents()
@@ -92,43 +94,6 @@ namespace Engine
 			if (event.type == Engine::EventType::KEY_RELEASE && event.key.code == Engine::Key::ESCAPE)
 				window.close();
 		}
-	}
-
-	void Application::processGame()
-	{
-	}
-
-	void Application::renderGame()
-	{
-	}
-
-	static float screenColor[4] = { 0.109, 0.222, 0.386 };
-	void Application::processGui()
-	{
-		ImGui::Begin("Display Properties", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
-
-		if (ImGui::ColorEdit3("Clear Color", screenColor))
-		{
-			Engine::Renderer::setNormalizedClearColorRGB(screenColor[0], screenColor[1], screenColor[2]);
-		}
-		static bool loadModelButtonWasPressed = false;
-		if (ImGui::Button("Load Model") || loadModelButtonWasPressed)
-		{
-			loadModelButtonWasPressed = true;
-			ImGui::Begin("File Select", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
-			ImGui::Text("Hello");
-			ImGui::Indent();
-			ImGui::Text("World");
-			ImGui::End();
-		}
-
-		ImGui::End();
-	}
-
-	void Application::renderGui()
-	{
-		ImGui::Render();
-		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 	}
 
 	void Application::runPhysics()

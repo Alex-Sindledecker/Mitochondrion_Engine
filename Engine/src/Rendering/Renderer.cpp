@@ -30,7 +30,7 @@ namespace Engine
 		glClearColor(r, g, b, 1.f);
 	}
 
-	void Renderer::setClearColorRGB(const u8 r, const u8 g, const u8 b)
+	void Renderer::setClearColorRGB(const u8_t r, const u8_t g, const u8_t b)
 	{
 		glClearColor(float(r / 255.f), float(g / 255.f), float(b / 255.f), 1.f);
 	}

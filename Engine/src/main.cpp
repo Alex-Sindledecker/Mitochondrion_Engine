@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "Application.h"
+#include "Layers/GUILayer.h"
 
 int main(int argc, char** argv)
 {
@@ -12,6 +13,9 @@ int main(int argc, char** argv)
 		return status.code;
 	}
 	
+	Engine::GUILayer layer;
+	
+	Engine::Application::pushLayer("GUI Layer", &layer);
 	Engine::Application::run();
 
 	Engine::Renderer::terminate();

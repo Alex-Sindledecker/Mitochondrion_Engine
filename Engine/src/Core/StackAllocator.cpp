@@ -4,9 +4,9 @@
 namespace Engine
 {
 
-	StackAllocator::StackAllocator(u32 capacity, bool fixed)
+	StackAllocator::StackAllocator(u32_t capacity, bool fixed)
 	{
-		data = new u8[capacity];
+		data = new u8_t[capacity];
 		cap = capacity;
 		head = 0;
 	}
@@ -15,7 +15,7 @@ namespace Engine
 	{
 		cap = allocator.cap;
 		head = allocator.head;
-		data = new u8[cap];
+		data = new u8_t[cap];
 		memcpy(data, allocator.data, cap);
 	}
 
@@ -47,12 +47,12 @@ namespace Engine
 		head = marker;
 	}
 
-	void StackAllocator::setCapacity(u32 newCap)
+	void StackAllocator::setCapacity(u32_t newCap)
 	{
 		if (newCap == cap)
 			return;
 
-		u8* newBuffer = new u8[newCap];
+		u8_t* newBuffer = new u8_t[newCap];
 		if (newCap > cap)
 			memcpy(newBuffer, data, cap);
 		else
@@ -61,12 +61,12 @@ namespace Engine
 		data = newBuffer;
 	}
 
-	const u32 StackAllocator::getCapacity() const
+	const u32_t StackAllocator::getCapacity() const
 	{
 		return cap;
 	}
 
-	u8* StackAllocator::getDataPtr() const
+	u8_t* StackAllocator::getDataPtr() const
 	{
 		return data;
 	}
@@ -88,9 +88,9 @@ namespace Engine
 		return !operator==(compare);
 	}
 
-	inline uintptr_t StackAllocator::alignAddr(uintptr_t addr, u32 alignment)
+	inline uintptr_t StackAllocator::alignAddr(uintptr_t addr, u32_t alignment)
 	{
-		const u32 mask = alignment - 1;
+		const u32_t mask = alignment - 1;
 		return (addr + mask) & ~mask;
 	}
 

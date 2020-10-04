@@ -11,7 +11,7 @@ namespace Engine
 	public:
 		using Marker = uintptr_t;
 	public:
-		StackAllocator(u32 capacity = 8, bool fixed = false); //Capacity in bytes
+		StackAllocator(u32_t capacity = 8, bool fixed = false); //Capacity in bytes
 		StackAllocator(const StackAllocator& allocator);
 		StackAllocator(StackAllocator&& allocator) noexcept;
 		~StackAllocator();
@@ -31,19 +31,19 @@ namespace Engine
 
 		void clear();
 		inline void freeToMarker(Marker marker);
-		void setCapacity(u32 newCap);
-		u8* getDataPtr() const;
-		const u32 getCapacity() const;
+		void setCapacity(u32_t newCap);
+		u8_t* getDataPtr() const;
+		const u32_t getCapacity() const;
 		const Marker getHeadMarker() const;
 
 		const bool operator==(const StackAllocator& compare) const;
 		const bool operator!=(const StackAllocator& compare) const;
 
 	private:
-		inline uintptr_t alignAddr(uintptr_t addr, u32 alignment);
+		inline uintptr_t alignAddr(uintptr_t addr, u32_t alignment);
 
-		u8* data;
-		u32 cap;
+		u8_t* data;
+		u32_t cap;
 		Marker head;
 	};
 

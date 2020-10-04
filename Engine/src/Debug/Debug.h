@@ -13,7 +13,7 @@ namespace Engine
 	class Debug
 	{
 	public:
-		using LogLevel = u8;
+		using LogLevel = u8_t;
 		const static int LOG_ALL = 0b0111;
 		const static int LOG_ERROR = 0b0001;
 		const static int LOG_WARNING = 0b0010;

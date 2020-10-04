@@ -19,16 +19,16 @@ namespace Engine
 		static GLFWglproc getGLLoadProc(const char* procname);
 		static GLFWvkproc getVKLoadProc(const char* procname);
 
-		void create(u32 width, u32 height, const char* title, bool fullscreen = false);
+		void create(u32_t width, u32_t height, const char* title, bool fullscreen = false);
 		Window() {}
-		Window(u32 width, u32 height, const char* title, bool fullscreen = false);
+		Window(u32_t width, u32_t height, const char* title, bool fullscreen = false);
 		virtual ~Window();
 
 		void updateContext();
 		void swapBuffers();
 		void close();
 		void setTitle(const char* title);
-		void setSize(u32 width, u32 height);
+		void setSize(u32_t width, u32_t height);
 		void setViewport(const Viewport& viewport);
 		void setViewport(int x, int y, int w, int h);
 		void setVsyncEnabled(bool enable);
