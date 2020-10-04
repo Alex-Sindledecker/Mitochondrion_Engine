@@ -1,3 +1,9 @@
+///
+/// 
+/// Define BUILD_GAME_EXECTUABLE and recompile the project to create the game
+/// 
+/// 
+
 #include "pch.h"
 #include "Application.h"
 #include "Layers/GUILayer.h"
@@ -12,10 +18,10 @@ int main(int argc, char** argv)
 		Engine::Debug::logError(status.string);
 		return status.code;
 	}
-	
+
 	Engine::GUILayer layer;
-	
 	Engine::Application::pushLayer("GUI Layer", &layer);
+
 	Engine::Application::run();
 
 	Engine::Renderer::terminate();

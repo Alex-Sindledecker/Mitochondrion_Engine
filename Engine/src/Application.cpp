@@ -71,6 +71,8 @@ namespace Engine
 
 	void Application::beginFrame()
 	{
+		Renderer::_renderTriangle();
+
 		float dt = mainLoopClock.tick();
 		for (std::pair<const char*, Layer*> pair : layers)
 		{

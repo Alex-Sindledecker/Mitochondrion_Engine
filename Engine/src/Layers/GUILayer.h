@@ -2,11 +2,16 @@
 
 #include "Layer.h"
 
+#include <filesystem>
+
 namespace Engine
 {
 
 	class GUILayer : public Layer
 	{
+	private:
+		using Directory = std::filesystem::directory_entry;
+		using DirectoryIterator = std::filesystem::directory_iterator;
 	public:
 		virtual void onLoad() override;
 		virtual void onFrameStart() override;
@@ -15,6 +20,9 @@ namespace Engine
 
 	private:
 		void buildGUI();
+		Directory openFileDialoge(const Directory& searchDirectory);
+
+		std::string directoryHandleResult = "";
 	};
 
 }

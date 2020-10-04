@@ -17,6 +17,7 @@ Includes
 #include <condition_variable>
 #include <utility>
 #include <memory>
+#include <filesystem>
 
 //Data structures
 #include <string>

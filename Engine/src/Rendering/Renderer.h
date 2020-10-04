@@ -35,6 +35,9 @@ namespace Engine
 		static void setNormalizedClearColorRGB(const float r, const float g, const float b);
 		static void setClearColorRGB(const u8_t r, const u8_t g, const u8_t b);
 
+		//For debuging purposes only
+		static void _renderTriangle();
+
 		Renderer(const Renderer&) = delete;
 		void operator=(const Renderer&) = delete;
 

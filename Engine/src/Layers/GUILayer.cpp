@@ -9,8 +9,6 @@ static float screenColor[4] = { 0.109, 0.222, 0.386 };
 #include <imgui_impl_glfw.h>
 #include <imgui_impl_opengl3.h>
 
-#include <filesystem>
-
 namespace Engine
 {
 
@@ -33,6 +31,12 @@ namespace Engine
 		ImGui::NewFrame();
 
 		buildGUI();
+
+		if (directoryHandleResult != "")
+		{
+			Debug::logMessage("Loading project {}", directoryHandleResult);
+			directoryHandleResult = "";
+		}
 	}
 
 	void GUILayer::onFrameEnd()
@@ -83,33 +87,45 @@ namespace Engine
 
 		if (displayOpenFileDialoge)
 		{
-			static std::string searchDirectory = "C:/";
-			static std::string lastSearchDirectory = "C:/";
+			static Directory currentDir = Directory("C:/");
 
-			ImGui::Begin("Open Project", &displayOpenFileDialoge);
+			ImGui::Begin("Open File", &displayOpenFileDialoge);
 
-			if (ImGui::ArrowButton("Back", ImGuiDir_Left))
-				searchDirectory.swap(lastSearchDirectory);
-			if (ImGui::ArrowButton("Back", ImGuiDir_Right))
-				lastSearchDirectory.swap(searchDirectory);
+			if (ImGui::ArrowButton("File Nav Back Button", ImGuiDir_Left))
+				currentDir.assign(currentDir.path().parent_path());
 
-			for (const std::filesystem::directory_entry& dir : std::filesystem::directory_iterator(searchDirectory))
+			if (currentDir.is_directory())
+				currentDir = openFileDialoge(currentDir);
+			else if (currentDir.is_regular_file())
 			{
-				if (dir.is_directory() || dir.is_regular_file())
+				ImGui::Begin("Confirmation");
+				ImGui::Text("Are you sure you want to open: \n%s?", currentDir.path().filename().string().c_str());
+				if (ImGui::Button("Yes"))
 				{
-					if (ImGui::Button(dir.path().filename().string().c_str()))
-					{
-						if (dir.is_directory())
-						{
-							lastSearchDirectory = searchDirectory;
-							searchDirectory = dir.path().string();
-						}
-					}
+					directoryHandleResult = currentDir.path().string().c_str();
+					currentDir.assign(currentDir.path().parent_path());
+					displayOpenFileDialoge = false;
 				}
+				else if (ImGui::Button("No"))
+					currentDir.assign(currentDir.path().parent_path());
+				ImGui::End();
 			}
 
 			ImGui::End();
 		}
+	}
+
+	GUILayer::Directory GUILayer::openFileDialoge(const Directory& searchDirectory)
+	{
+		for (const Directory& dir : DirectoryIterator(searchDirectory))
+		{
+			if (dir.is_directory() || dir.is_regular_file())
+			{
+				if (ImGui::Button(dir.path().filename().string().c_str()))
+					return dir;
+			}
+		}
+		return searchDirectory;
 	}
 
 }
