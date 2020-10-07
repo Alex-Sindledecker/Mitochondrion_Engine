@@ -3,7 +3,6 @@
 #include "Debug/Debug.h"
 
 #include "Rendering/Renderer.h"
-static float screenColor[4] = { 0.109, 0.222, 0.386 };
 
 #include <imgui.h>
 #include <imgui_impl_glfw.h>
@@ -31,12 +30,6 @@ namespace Engine
 		ImGui::NewFrame();
 
 		buildGUI();
-
-		if (directoryHandleResult != "")
-		{
-			Debug::logMessage("Loading project {}", directoryHandleResult);
-			directoryHandleResult = "";
-		}
 	}
 
 	void GUILayer::onFrameEnd()
@@ -54,14 +47,18 @@ namespace Engine
 
 	void GUILayer::buildGUI()
 	{
+		//Booleans for displaying certain windows
 		static bool displayPreferencesWindow = false;
-		static bool displayOpenFileDialoge = false;
+		static bool displayOpenProjectDialoge = false;
+		static bool displayNewProjectDialoge = false;
 
+		//Main menu bar
 		ImGui::BeginMainMenuBar();
 
 		if (ImGui::BeginMenu("File"))
 		{
-			ImGui::MenuItem("Open Project", "Ctrl-o", &displayOpenFileDialoge);
+			ImGui::MenuItem("New Project", "Ctrl-N", &displayNewProjectDialoge);
+			ImGui::MenuItem("Open Project", "Ctrl-O", &displayOpenProjectDialoge);
 			if (ImGui::MenuItem("Quit"))
 				window->close();
 			ImGui::EndMenu();
@@ -75,6 +72,7 @@ namespace Engine
 
 		ImGui::EndMainMenuBar();
 
+		//Preferences window
 		if (displayPreferencesWindow)
 		{
 			ImGui::Begin("Preferences", &displayPreferencesWindow, ImGuiWindowFlags_AlwaysAutoResize);
@@ -84,48 +82,156 @@ namespace Engine
 			}
 			ImGui::End();
 		}
-
-		if (displayOpenFileDialoge)
+		
+		//Open file dialoges
+		if (displayOpenProjectDialoge)
 		{
-			static Directory currentDir = Directory("C:/");
+			displayNewProjectDialoge = false;
+			static Directory projectSearchRoot = Directory("C:\\");
+			openFileDialoge("Open Project", &projectSearchRoot, &displayOpenProjectDialoge, [=](FileInfo info) {
+				Debug::logMessage("Loading project {} at {}...", info.name, info.path);
+			});
+		}
+		else if (displayNewProjectDialoge)
+		{
+			displayOpenProjectDialoge = false;
+			static Directory projectSearchRoot = Directory("C:\\");
+			selectDirectoryDialoge("New Project", &projectSearchRoot, &displayNewProjectDialoge, [=](FileInfo info) {
+				Debug::logMessage("Creating new project at {}...", info.path);
+			});
+		}
 
-			ImGui::Begin("Open File", &displayOpenFileDialoge);
+	}
 
-			if (ImGui::ArrowButton("File Nav Back Button", ImGuiDir_Left))
-				currentDir.assign(currentDir.path().parent_path());
+	void GUILayer::openFileDialoge(const char* title, Directory* startDirectory, bool* isOpen, FileCallback callback)
+	{
+		static bool displayFileConfirm = false;
 
-			if (currentDir.is_directory())
-				currentDir = openFileDialoge(currentDir);
-			else if (currentDir.is_regular_file())
+		ImGui::SetNextWindowSizeConstraints(ImVec2(0, 0), ImVec2(1980, 720));
+		ImGui::Begin(title, isOpen, ImGuiWindowFlags_AlwaysAutoResize);
+
+		if (ImGui::ArrowButton("File Nav Back Button", ImGuiDir_Left))
+			startDirectory->assign(startDirectory->path().parent_path());
+		ImGui::SameLine();
+		ImGui::Text("Current Directory"); ImGui::SameLine();
+		static char inputDirectoryBuffer[256];
+		strncpy_s(inputDirectoryBuffer, startDirectory->path().string().c_str(), startDirectory->path().string().size());
+		if (ImGui::InputText("", inputDirectoryBuffer, 256))
+			startDirectory->assign(Directory(inputDirectoryBuffer));
+
+		ImGui::NewLine();
+
+		static Directory selectedDir("");
+		try
+		{
+			for (const Directory& dir : DirectoryIterator(*startDirectory))
 			{
-				ImGui::Begin("Confirmation");
-				ImGui::Text("Are you sure you want to open: \n%s?", currentDir.path().filename().string().c_str());
-				if (ImGui::Button("Yes"))
+				if (dir.is_directory())
 				{
-					directoryHandleResult = currentDir.path().string().c_str();
-					currentDir.assign(currentDir.path().parent_path());
-					displayOpenFileDialoge = false;
+					if (ImGui::Button(dir.path().filename().string().c_str()))
+						startDirectory->assign(dir);
 				}
-				else if (ImGui::Button("No"))
-					currentDir.assign(currentDir.path().parent_path());
-				ImGui::End();
+				else if (dir.is_regular_file())
+				{
+					if (ImGui::Button(dir.path().filename().string().c_str()))
+					{
+						selectedDir = dir;
+						displayFileConfirm = true;
+					}
+				}
 			}
+		}
+		catch (std::filesystem::filesystem_error e)
+		{
+			Debug::logWarning("File system error when trying to access {}!", startDirectory->path().string());
+		}
+
+		confirmMenu("Confirm?", selectedDir.path().string(), &displayFileConfirm, [=] {
+			*isOpen = false;
+
+			Engine::GUILayer::FileInfo info(selectedDir.path().parent_path().string(),
+											selectedDir.path().filename().string(),
+											selectedDir.path().filename().extension().string());
+			callback(info);
+		});
+
+		ImGui::End();
+	}
+
+	void GUILayer::selectDirectoryDialoge(const char* title, Directory* startDirectory, bool* isOpen, FileCallback callback)
+	{
+		static bool displayConfirmation = false;
+
+		ImGui::SetNextWindowSizeConstraints(ImVec2(0, 0), ImVec2(1980, 720));
+		ImGui::Begin(title, isOpen, ImGuiWindowFlags_AlwaysAutoResize);
+
+		if (ImGui::ArrowButton("File Nav Back Button", ImGuiDir_Left))
+			startDirectory->assign(startDirectory->path().parent_path());
+		ImGui::SameLine();
+		ImGui::Text("Current Directory"); ImGui::SameLine();
+		static char inputDirectoryBuffer[256];
+		strncpy_s(inputDirectoryBuffer, startDirectory->path().string().c_str(), startDirectory->path().string().size());
+		if (ImGui::InputText("", inputDirectoryBuffer, 256))
+			startDirectory->assign(Directory(inputDirectoryBuffer));
+		ImGui::SameLine();
+		if (ImGui::Button("Use This Directory"))
+			displayConfirmation = true;
+
+		ImGui::NewLine();
+
+		if (startDirectory->is_directory())
+		{
+			try
+			{
+				for (const Directory& dir : DirectoryIterator(*startDirectory))
+				{
+					if (dir.is_directory())
+					{
+						if (ImGui::Button(dir.path().filename().string().c_str()))
+							startDirectory->assign(dir);					
+					}
+				}
+			}
+			catch (std::filesystem::filesystem_error e)
+			{
+				Debug::logWarning("File system error when trying to access {}! Reverting to previous directory...", startDirectory->path().string());
+				startDirectory->assign(startDirectory->path().parent_path());
+			}
+		}
+
+		if (displayConfirmation)
+		{
+			confirmMenu("Confirm Directory?", startDirectory->path().string(), &displayConfirmation, [=] {
+				*isOpen = false;
+
+				Engine::GUILayer::FileInfo info(startDirectory->path().string(),
+					startDirectory->path().filename().string(),
+					"");
+				callback(info);
+			});
+		}
+
+		ImGui::End();
+	}
+
+	void GUILayer::confirmMenu(const char* title, const std::string& message, bool* isOpen, VoidCallback callback)
+	{
+		if (*isOpen)
+		{
+			ImGui::Begin(title, nullptr, ImGuiWindowFlags_AlwaysAutoResize);
+
+			ImGui::Text("Confirm: %s?", message.c_str());
+			if (ImGui::Button("Yes"))
+			{
+				callback();
+				*isOpen = false;
+			}
+			ImGui::SameLine();
+			if (ImGui::Button("No"))
+				*isOpen = false;
 
 			ImGui::End();
 		}
-	}
-
-	GUILayer::Directory GUILayer::openFileDialoge(const Directory& searchDirectory)
-	{
-		for (const Directory& dir : DirectoryIterator(searchDirectory))
-		{
-			if (dir.is_directory() || dir.is_regular_file())
-			{
-				if (ImGui::Button(dir.path().filename().string().c_str()))
-					return dir;
-			}
-		}
-		return searchDirectory;
 	}
 
 }

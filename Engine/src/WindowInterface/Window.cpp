@@ -125,7 +125,7 @@ namespace Engine
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 		this->title = title;
-		this->viewport = { 0, 0, (int)width, (int)height };
+		this->viewport = { 0, 0, static_cast<int>(width), static_cast<int>(height) };
 		if (fullscreen)
 			window = glfwCreateWindow(width, height, title, glfwGetPrimaryMonitor(), nullptr);
 		else
@@ -155,12 +155,12 @@ namespace Engine
 			event.type = EventType::KEY_PRESS;
 		else if (action == GLFW_RELEASE)
 			event.type = EventType::KEY_RELEASE;
-		event.key.code = (Key)key;
+		event.key.code = static_cast<Key>(key);
 		event.key.alt = isKeyPressed(Key::LEFT_ALT) | isKeyPressed(Key::RIGHT_ALT);
 		event.key.ctrl = isKeyPressed(Key::LEFT_CONTROL) | isKeyPressed(Key::RIGHT_CONTROL);
 		event.key.shift = isKeyPressed(Key::LEFT_SHIFT) | isKeyPressed(Key::RIGHT_SHIFT);
 
-		Window* w = (Window*)glfwGetWindowUserPointer(window);
+		Window* w = static_cast<Window*>(glfwGetWindowUserPointer(window));
 		w->events.push_back(event);
 	}
 
@@ -175,7 +175,7 @@ namespace Engine
 
 		event.mouseButton.btn = (MouseButton)button;
 
-		Window* w = (Window*)glfwGetWindowUserPointer(window);
+		Window* w = static_cast<Window*>(glfwGetWindowUserPointer(window));
 		w->events.push_back(event);
 	}
 

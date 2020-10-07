@@ -9,12 +9,12 @@ namespace Engine
 
 	bool isKeyPressed(Key key)
 	{
-		return glfwGetKey(PrimaryDisplay, (int)key) == GLFW_PRESS;
+		return glfwGetKey(PrimaryDisplay, static_cast<int>(key)) == GLFW_PRESS;
 	}
 
 	bool isKeyReleased(Key key)
 	{
-		return glfwGetKey(PrimaryDisplay, (int)key) == GLFW_RELEASE;
+		return glfwGetKey(PrimaryDisplay, static_cast<int>(key)) == GLFW_RELEASE;
 	}
 
 	MousePos getMousePos()
