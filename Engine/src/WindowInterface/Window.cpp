@@ -10,16 +10,6 @@ namespace Engine
 
 	constexpr u32_t eventQueueCapactiy = 20;
 
-	GLFWglproc Window::getGLLoadProc(const char* procname)
-	{
-		return glfwGetProcAddress(procname);
-	}
-
-	GLFWvkproc Window::getVKLoadProc(const char* procname)
-	{
-		return glfwGetProcAddress(procname);
-	}
-
 	void Window::create(u32_t width, u32_t height, const char* title, bool fullscreen)
 	{
 		glfwInit();

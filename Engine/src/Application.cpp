@@ -27,7 +27,7 @@ namespace Engine
 		asyncTaskManager.finish();
 	}
 
-	Window Application::getWindow()
+	Window& Application::getWindow()
 	{
 		return window;
 	}

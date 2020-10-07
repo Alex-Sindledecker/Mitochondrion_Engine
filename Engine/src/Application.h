@@ -18,7 +18,7 @@ namespace Engine
 		static void init();
 		static void terminate();
 
-		static Window getWindow();
+		static Window& getWindow();
 		static void run();
 		static void pushLayer(const char* name, Layer* layer);
 		static void setStaticTickRate(float ms);

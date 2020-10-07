@@ -10,7 +10,7 @@ int main(int argc, char* argv[])
 
 	Engine::Debug::init();
 	Engine::Application::init();
-	Engine::PipelineInitStatus status = Engine::Renderer::init(Engine::Application::getWindow().getGLLoadProc);
+	Engine::RenderPipelineInitStatus status = Engine::Renderer::init(Engine::Application::getWindow().getPtr());
 	if (status.code != RENDER_PIPELINE_INIT_SUCCESS)
 	{
 		Engine::Debug::logError(status.string);

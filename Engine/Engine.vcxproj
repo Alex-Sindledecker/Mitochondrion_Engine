@@ -324,6 +324,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Rendering\Renderers\OpenGLRenderer.cpp" />
     <ClCompile Include="src\Layers\GUILayer.cpp" />
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\Core\StackAllocator.cpp" />
@@ -333,6 +334,7 @@
     <ClCompile Include="src\Debug\Logging\DebugConsole.cpp" />
     <ClCompile Include="src\Debug\Logging\FileLog.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Rendering\Renderers\RendererAPI.cpp" />
     <ClCompile Include="src\WindowInterface\Event.cpp" />
     <ClCompile Include="src\pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -343,8 +345,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="src\Rendering\Renderer.cpp" />
-    <ClCompile Include="src\Rendering\Renderers\Renderer2D.cpp" />
-    <ClCompile Include="src\Rendering\Renderers\Renderer3D.cpp" />
     <ClCompile Include="src\WindowInterface\Window.cpp" />
     <ClCompile Include="vendor\include\glad.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
@@ -402,8 +402,10 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Dev|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="src\Rendering\Renderers\VulkanRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Rendering\Renderers\OpenGLRenderer.h" />
     <ClInclude Include="src\Layers\GUILayer.h" />
     <ClInclude Include="src\Layers\Layer.h" />
     <ClInclude Include="src\Application.h" />
@@ -418,11 +420,10 @@
     <ClInclude Include="src\Debug\Logging\DebugConsole.h" />
     <ClInclude Include="src\Debug\Logging\FileLog.h" />
     <ClInclude Include="src\Debug\Logging\LogTarget.h" />
+    <ClInclude Include="src\Rendering\Renderers\RendererAPI.h" />
     <ClInclude Include="src\WindowInterface\Event.h" />
     <ClInclude Include="src\pch.h" />
     <ClInclude Include="src\Rendering\Renderer.h" />
-    <ClInclude Include="src\Rendering\Renderers\Renderer2D.h" />
-    <ClInclude Include="src\Rendering\Renderers\Renderer3D.h" />
     <ClInclude Include="src\WindowInterface\Window.h" />
     <ClInclude Include="vendor\include\imgui\imconfig.h" />
     <ClInclude Include="vendor\include\imgui\imgui.h" />
@@ -432,6 +433,7 @@
     <ClInclude Include="vendor\include\imgui\imstb_rectpack.h" />
     <ClInclude Include="vendor\include\imgui\imstb_textedit.h" />
     <ClInclude Include="vendor\include\imgui\imstb_truetype.h" />
+    <ClInclude Include="src\Rendering\Renderers\VulkanRenderer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

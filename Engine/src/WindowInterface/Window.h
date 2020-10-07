@@ -16,9 +16,6 @@ namespace Engine
 	class Window
 	{
 	public:
-		static GLFWglproc getGLLoadProc(const char* procname);
-		static GLFWvkproc getVKLoadProc(const char* procname);
-
 		void create(u32_t width, u32_t height, const char* title, bool fullscreen = false);
 		Window() {}
 		Window(u32_t width, u32_t height, const char* title, bool fullscreen = false);

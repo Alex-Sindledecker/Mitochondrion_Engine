@@ -7,5 +7,5 @@ namespace Engine
 	using u16_t = unsigned short;
 	using u8_t = unsigned char;
 	using guid_t = u64_t;
-
+	using BitField = u32_t;
 }

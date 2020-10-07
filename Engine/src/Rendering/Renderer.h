@@ -1,22 +1,12 @@
 #pragma once
 
-#include "Core.h"
-#include "Renderers/Renderer2D.h"
-#include "Renderers/Renderer3D.h"
+#include "Renderers/OpenGLRenderer.h"
+#include "Renderers/VulkanRenderer.h"
 
-#define RENDER_PIPELINE_INIT_SUCCESS 0
-#define RENDER_PIPELINE_INIT_FAILURE -1
+#include <GLFW/glfw3.h>
 
 namespace Engine
 {
-
-	using BitField = u32_t;
-
-	struct PipelineInitStatus
-	{
-		int code = RENDER_PIPELINE_INIT_SUCCESS;
-		const char* string = "Success!";
-	};
 
 	constexpr BitField CL_COLOR_BUFFER_FLAG = 0x00004000;
 	constexpr BitField CL_DEPTH_BUFFER_FLAG = 0x000000100;
@@ -25,10 +15,7 @@ namespace Engine
 	class Renderer
 	{
 	public:
-		typedef void(*ProcFunc)();
-		typedef ProcFunc(*LoadProc)(const char* name);
-	public:
-		static PipelineInitStatus init(LoadProc winProcFunc);
+		static RenderPipelineInitStatus init(GLFWwindow* windowPtr);
 		static void terminate();
 
 		static void clearActiveFramebuffer(BitField flags = CL_COLOR_BUFFER_FLAG);
@@ -42,11 +29,11 @@ namespace Engine
 		void operator=(const Renderer&) = delete;
 
 	private:
-		static PipelineInitStatus initVK();
-		static PipelineInitStatus initGL(LoadProc winProcFunc);
-
 		Renderer() {}
 		~Renderer() {}
+
+		static GLFWwindow* windowPtr;
+		static RendererAPI* renderAPI;
 	};
 
 }
