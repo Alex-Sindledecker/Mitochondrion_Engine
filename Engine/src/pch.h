@@ -9,6 +9,7 @@ Includes
 //Tools
 #include <iostream>
 #include <chrono>
+#include <fstream>
 #include <sstream>
 #include <algorithm>
 #include <thread>
