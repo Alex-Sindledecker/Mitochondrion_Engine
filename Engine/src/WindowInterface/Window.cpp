@@ -122,7 +122,7 @@ namespace Engine
 			window = glfwCreateWindow(width, height, title, nullptr, nullptr);
 
 		if (window == nullptr)
-			Engine::Debug::logError("GLFW Window creation failed! window == nullptr!");
+			Debug::logError("GLFW Window creation failed! window == nullptr!");
 
 		glfwMakeContextCurrent(window);
 
@@ -135,7 +135,7 @@ namespace Engine
 
 	void Window::setupVKWindow(int width, int height, const char* title, bool fullscreen)
 	{
-		Engine::Debug::logWarning("Vulkan is not yet supported! Defaulting to opengl...");
+		Debug::logWarning("Vulkan is not yet supported! Defaulting to opengl...");
 	}
 
 	void Window::keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)

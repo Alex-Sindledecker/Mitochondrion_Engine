@@ -27,4 +27,28 @@ namespace Engine
 		file.close();
 	}
 
+	void loadFile(const std::string& src, std::string* dest)
+	{
+		loadFile(src.c_str(), dest);
+	}
+
+	void saveFile(const char* dest, const std::string& contents)
+	{
+		std::ofstream file(dest);
+
+		if (!file.is_open())
+		{
+			Debug::logError("There was an error when attempting to save to {}!", dest);
+			return;
+		}
+		
+		file.write(contents.c_str(), contents.length());
+		file.close();
+	}
+
+	void saveFile(const std::string& dest, const std::string& contents)
+	{
+		saveFile(dest.c_str(), contents);
+	}
+
 }

@@ -7,14 +7,19 @@ namespace Engine
 	Window Application::window;
 	ThreadPool Application::asyncTaskManager;
 	StackAllocator Application::singleFrameStack;
+	Clock Application::mainLoopClock;
+	Project Application::project;
 	std::mutex Application::physicsAccessMutex;
 	std::unordered_map<const char*, Layer*> Application::layers;
-	Clock Application::mainLoopClock;
 
-	void Application::init()
+	void Application::init(Project&& project)
 	{
+		Application::project = std::move(project);
+
 		asyncTaskManager.start(7);
-		window.create(1000, 1000, "Engine");
+		window.create(Application::project.settings.window.width,
+					  Application::project.settings.window.height,
+					  Application::project.name);
 	}
 
 	void Application::terminate()
@@ -25,6 +30,13 @@ namespace Engine
 		}
 
 		asyncTaskManager.finish();
+
+		saveProject(project, "C:/temp/");
+	}
+
+	Project& Application::getProject()
+	{
+		return project;
 	}
 
 	Window& Application::getWindow()
@@ -58,6 +70,14 @@ namespace Engine
 
 	void Application::setStaticTickRate(float ms)
 	{
+	}
+
+	void Application::changeProject(Project&& newProject)
+	{
+		project = std::move(newProject);
+		window.setSize(project.settings.window.width, project.settings.window.height);
+		window.setTitle(project.name);
+		loadDependencies();
 	}
 
 	void Application::loadDependencies()

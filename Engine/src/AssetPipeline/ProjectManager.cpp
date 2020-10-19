@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "ProjectManager.h"
 #include "Core/FileManager.h"
+#include "Core/StringTools.h"
 #include "Debug/Debug.h"
 
 #include <json11/json11.hpp>
@@ -49,21 +50,56 @@ namespace Engine
 		loadFile(path, &projectFileString);
 		json11::Json json = json11::Json::parse(projectFileString, jsonErrorString);
 
+		if (jsonErrorString.length() > 0)
+			Debug::logError(jsonErrorString);
+
 		loadSettings(json, project.settings);
 		loadAssets(json, project);
 
 		return project;
 	}
 
-	Project createProject(const char* dir)
+	std::string makeDependencies(Asset& asset, Project& project)
 	{
-		Project project;
-
-		return project;
+		return "{}";
 	}
 
-	void Project::save()
+	std::string makeAsset(Asset& asset, Project& project)
 	{
+		std::string& name = project.assetNames[asset.id];
+		std::string& path = project.filePaths[asset.pathId];
+		
+		std::string str = buildFormattedString("\t\t\"{}\": {\n\t\t\t\"File-Path\": \"{}\",\n\t\t\t\"Dependencies\": {}\n\t\t},\n",
+											   name, path, makeDependencies(asset, project)); 
+		return str;
+	}
+
+	std::string makeSettings(Project& project)
+	{
+		std::string projectProperties = buildFormattedString(
+			"\t\"Properties\": {\n\t\t\"Window-Width\": {},\n\t\t\"Window-Height\": {}\n\t},\n",
+			project.settings.window.width, project.settings.window.height);
+
+		return projectProperties;
+	}
+
+	void saveProject(Project& project, const std::string& dir)
+	{
+		std::string jsonResult = "{\n";
+
+		jsonResult += makeSettings(project);
+		
+		jsonResult += "\t\"Assets\": {\n";
+
+		for (Asset& asset : project.assets)
+		{
+			std::string assetStr = makeAsset(asset, project);
+			jsonResult += assetStr;
+		}
+
+		jsonResult += "\n\t}\n}";
+		
+		saveFile(dir + project.name + ".json", jsonResult);
 	}
 
 }

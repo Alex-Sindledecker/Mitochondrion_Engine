@@ -27,10 +27,10 @@ namespace Engine
 		std::vector<Asset> assets;
 		std::unordered_map<guid_t, std::string> assetNames;
 		std::unordered_map<guid_t, std::string> filePaths;
-		void save();
+		const char* name;
 	};
 
 	Project loadProject(const char* path);
-	Project createProject(const char* dir);
+	void saveProject(Project& project, const std::string& dir);
 
 }

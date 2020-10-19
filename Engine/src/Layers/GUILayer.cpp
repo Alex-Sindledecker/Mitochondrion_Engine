@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "GUILayer.h"
 #include "Debug/Debug.h"
-
+#include "Application.h"
 #include "Rendering/Renderer.h"
 
 #include <imgui.h>
@@ -51,6 +51,7 @@ namespace Engine
 		static bool displayPreferencesWindow = false;
 		static bool displayOpenProjectDialoge = false;
 		static bool displayNewProjectDialoge = false;
+		static bool displaySaveProjectDialoge = false;
 
 		//Main menu bar
 		ImGui::BeginMainMenuBar();
@@ -59,6 +60,7 @@ namespace Engine
 		{
 			ImGui::MenuItem("New Project", "Ctrl-N", &displayNewProjectDialoge);
 			ImGui::MenuItem("Open Project", "Ctrl-O", &displayOpenProjectDialoge);
+			ImGui::MenuItem("Save Project", "Ctrl-S", &displaySaveProjectDialoge);
 			if (ImGui::MenuItem("Quit"))
 				window->close();
 			ImGui::EndMenu();
@@ -87,23 +89,41 @@ namespace Engine
 		if (displayOpenProjectDialoge)
 		{
 			displayNewProjectDialoge = false;
+			displaySaveProjectDialoge = false;
 			static Directory projectSearchRoot = Directory("C:\\");
-			openFileDialoge("Open Project", &projectSearchRoot, &displayOpenProjectDialoge, [=](FileInfo info) {
+			openFileDialoge("Open Project", &projectSearchRoot, &displayOpenProjectDialoge, ".json", [=](FileInfo info) {
 				Debug::logMessage("Loading project {} at {}...", info.name, info.path);
+
+				workingDirectory = info.path;
+				Application::changeProject(std::move(loadProject( (info.path + info.name).c_str() )));
 			});
 		}
 		else if (displayNewProjectDialoge)
 		{
 			displayOpenProjectDialoge = false;
+			displaySaveProjectDialoge = false;
 			static Directory projectSearchRoot = Directory("C:\\");
 			selectDirectoryDialoge("New Project", &projectSearchRoot, &displayNewProjectDialoge, [=](FileInfo info) {
 				Debug::logMessage("Creating new project at {}...", info.path);
+
+				workingDirectory = info.path;
+				saveProject(Application::getProject(), workingDirectory);
 			});
 		}
-
+		else if (displaySaveProjectDialoge)
+		{
+			Project& project = Application::getProject();
+			if (project.name == "Unsaved Project")
+			{
+				displayOpenProjectDialoge = true;
+				displaySaveProjectDialoge = false;
+			}
+			else
+				saveProject(project, workingDirectory);
+		}
 	}
 
-	void GUILayer::openFileDialoge(const char* title, Directory* startDirectory, bool* isOpen, FileCallback callback)
+	void GUILayer::openFileDialoge(const char* title, Directory* startDirectory, bool* isOpen, const char* extensionContraints, FileCallback callback)
 	{
 		static bool displayFileConfirm = false;
 
@@ -133,10 +153,13 @@ namespace Engine
 				}
 				else if (dir.is_regular_file())
 				{
-					if (ImGui::Button(dir.path().filename().string().c_str()))
+					if (extensionContraints != "" && dir.path().extension() == extensionContraints)
 					{
-						selectedDir = dir;
-						displayFileConfirm = true;
+						if (ImGui::Button(dir.path().filename().string().c_str()))
+						{
+							selectedDir = dir;
+							displayFileConfirm = true;
+						}
 					}
 				}
 			}

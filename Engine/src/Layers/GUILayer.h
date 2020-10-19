@@ -17,7 +17,7 @@ namespace Engine
 			std::string name;
 			std::string extension;
 			FileInfo(const std::string& path, const std::string& name, const std::string& extension)
-				: path(path), name(name), extension(extension) {}
+				: path(path + '\\'), name(name), extension(extension) {}
 		};
 
 		using Directory = std::filesystem::directory_entry;
@@ -33,11 +33,12 @@ namespace Engine
 
 	private:
 		void buildGUI();
-		void openFileDialoge(const char* title, Directory* startDirectory, bool* isOpen, FileCallback callback); // add extension constraintes to parameters
+		void openFileDialoge(const char* title, Directory* startDirectory, bool* isOpen, const char* extensionContraints, FileCallback callback); // add extension constraintes to parameters
 		void selectDirectoryDialoge(const char* title, Directory* startDirectory, bool* isOpen, FileCallback callback);
 		void confirmMenu(const char* title, const std::string& message, bool* isOpen, VoidCallback callback);
 
 		float screenColor[4] = { 0.109, 0.222, 0.386 };
+		std::string workingDirectory;
 	};
 
 }

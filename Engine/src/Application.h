@@ -6,7 +6,7 @@
 #include "Rendering/Renderer.h"
 #include "Core/ThreadPool.h"
 #include "Core/StackAllocator.h"
-
+#include "AssetPipeline/ProjectManager.h"
 #include "Layers/Layer.h"
 
 namespace Engine
@@ -15,13 +15,15 @@ namespace Engine
 	class Application
 	{
 	public:
-		static void init();
+		static void init(Project&& project);
 		static void terminate();
 
+		static Project& getProject();
 		static Window& getWindow();
 		static void run();
 		static void pushLayer(const char* name, Layer* layer);
 		static void setStaticTickRate(float ms);
+		static void changeProject(Project&& newProject);
 
 		Application(const Application&) = delete;
 		void operator=(const Application&) = delete;
@@ -42,6 +44,7 @@ namespace Engine
 		static std::mutex physicsAccessMutex;
 		static std::unordered_map<const char*, Layer*> layers;
 		static Clock mainLoopClock;
+		static Project project;
 	};
 
 }
