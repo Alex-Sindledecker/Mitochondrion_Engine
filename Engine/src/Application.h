@@ -2,8 +2,8 @@
 
 #include "Core.h"
 #include "Debug/Debug.h"
-#include "WindowInterface/Window.h"
 #include "Rendering/Renderer.h"
+#include "WindowInterface/Window.h"
 #include "Core/ThreadPool.h"
 #include "Core/StackAllocator.h"
 #include "AssetPipeline/ProjectManager.h"

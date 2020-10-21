@@ -110,6 +110,7 @@ namespace Engine
 
 	void Window::setupGLWindow(int width, int height, const char* title, bool fullscreen)
 	{
+		glfwWindowHint(GLFW_SAMPLES, 4);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);

@@ -56,7 +56,7 @@ namespace Engine
 
 			handleEvents();
 
-			Engine::Renderer::clearActiveFramebuffer();
+			Renderer::clearActiveFramebuffer();
 			beginFrame();
 			endFrame();
 			window.swapBuffers();
@@ -91,8 +91,6 @@ namespace Engine
 
 	void Application::beginFrame()
 	{
-		Renderer::_renderTriangle();
-
 		float dt = mainLoopClock.tick();
 		for (std::pair<const char*, Layer*> pair : layers)
 		{

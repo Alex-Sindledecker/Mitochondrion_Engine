@@ -21,7 +21,7 @@ namespace Engine
 		std::string line;
 		while (std::getline(file, line))
 		{
-			dest->append(line);
+			dest->append(line + '\n');
 		}
 			
 		file.close();

@@ -1,12 +1,14 @@
 #include "pch.h"
-#include "GUILayer.h"
-#include "Debug/Debug.h"
-#include "Application.h"
-#include "Rendering/Renderer.h"
 
 #include <imgui.h>
 #include <imgui_impl_glfw.h>
 #include <imgui_impl_opengl3.h>
+
+#include "Debug/Debug.h"
+#include "Rendering/Renderer.h"
+#include "Application.h"
+
+#include "GUILayer.h"
 
 namespace Engine
 {

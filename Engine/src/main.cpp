@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Application.h"
 #include "Layers/GUILayer.h"
+#include "Layers/TestingLayer.h"
 #include "AssetPipeline/ProjectManager.h"
 
 Engine::Project getProject(const char* path)
@@ -37,6 +38,9 @@ int main(int argc, char* argv[])
 	//TODO: GUILayer really sucks right now. Needs complete refactoring
 	//Engine::GUILayer layer;
 	//Engine::Application::pushLayer("GUI Layer", &layer);
+
+	Engine::TestingLayer testLayer;
+	Engine::Application::pushLayer("Test Layer", &testLayer);
 
 	Engine::Application::run();
 

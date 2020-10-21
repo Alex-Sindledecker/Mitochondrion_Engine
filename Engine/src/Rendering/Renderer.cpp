@@ -42,6 +42,11 @@ namespace Engine
 		renderAPI->setClearColor(r / 255.f, g / 255.f, b / 255.f);
 	}
 
+	RendererAPI* Renderer::getRendererAPI()
+	{
+		return renderAPI;
+	}
+
 	void Renderer::_renderTriangle()
 	{
 		renderAPI->_renderTriangle();

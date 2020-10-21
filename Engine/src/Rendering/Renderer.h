@@ -21,6 +21,7 @@ namespace Engine
 		static void clearActiveFramebuffer(BitField flags = CL_COLOR_BUFFER_FLAG);
 		static void setNormalizedClearColorRGB(const float r, const float g, const float b);
 		static void setClearColorRGB(const u8_t r, const u8_t g, const u8_t b);
+		static RendererAPI* getRendererAPI();
 
 		//For debuging purposes only
 		static void _renderTriangle();

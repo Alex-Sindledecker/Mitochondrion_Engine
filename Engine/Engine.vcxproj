@@ -348,6 +348,7 @@
     </ClCompile>
     <ClCompile Include="src\Rendering\Renderer.cpp" />
     <ClCompile Include="src\WindowInterface\Window.cpp" />
+    <ClCompile Include="src\Layers\TestingLayer.cpp" />
     <ClCompile Include="vendor\include\glad.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Dev|Win32'">NotUsing</PrecompiledHeader>
@@ -437,6 +438,7 @@
     <ClInclude Include="src\pch.h" />
     <ClInclude Include="src\Rendering\Renderer.h" />
     <ClInclude Include="src\WindowInterface\Window.h" />
+    <ClInclude Include="src\Layers\TestingLayer.h" />
     <ClInclude Include="vendor\include\imgui\imconfig.h" />
     <ClInclude Include="vendor\include\imgui\imgui.h" />
     <ClInclude Include="vendor\include\imgui\imgui_impl_glfw.h" />
@@ -447,6 +449,10 @@
     <ClInclude Include="vendor\include\imgui\imstb_truetype.h" />
     <ClInclude Include="src\Rendering\Renderers\VulkanRenderer.h" />
     <ClInclude Include="vendor\include\json11\json11.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\Rendering\Renderers\Shaders\ExampleFragment.glsl" />
+    <None Include="src\Rendering\Renderers\Shaders\ExampleVertex.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
