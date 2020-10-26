@@ -1,7 +1,9 @@
 #Directories
 .vs/
 out/
+out-int/
 
 #Files
 *.user
+*.filters
 debug_trace.txt

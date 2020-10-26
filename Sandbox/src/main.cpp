@@ -1,4 +1,4 @@
-#include <Engine.h>
+#include <mito/Engine.h>
 
 #include <iostream>
 
@@ -6,13 +6,13 @@ class SandboxApp : public mito::Application
 {
 public:
 
-	void run() override { printf("Hello World!"); }
+	void run() override
+	{
+	}
 
 private:
 
 };
-
-//This is a test comment for git
 
 mito::Application* mito::createApp()
 {
