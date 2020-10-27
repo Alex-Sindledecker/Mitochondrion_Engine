@@ -243,6 +243,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\mito\Debug\Debug.h" />
     <ClInclude Include="external\include\glad\glad.h" />
     <ClInclude Include="src\mito\Core\Application.h" />
     <ClInclude Include="src\mito\Core\EntryPoint.h" />
@@ -253,10 +254,13 @@
     <ClInclude Include="src\mito\Core\ThreadPool.h" />
     <ClInclude Include="src\mito\Core\Time.h" />
     <ClInclude Include="src\mito\Core\UniquePointer.h" />
+    <ClInclude Include="src\mito\Debug\ConsoleLogger.h" />
+    <ClInclude Include="src\mito\Debug\LogTarget.h" />
     <ClInclude Include="src\mito\Engine.h" />
     <ClInclude Include="src\mito\mepch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\mito\Debug\Debug.cpp" />
     <ClCompile Include="external\include\glad.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Dev|Win32'">NotUsing</PrecompiledHeader>
@@ -270,6 +274,7 @@
     <ClCompile Include="src\mito\Core\StackAllocator.cpp" />
     <ClCompile Include="src\mito\Core\ThreadPool.cpp" />
     <ClCompile Include="src\mito\Core\Time.cpp" />
+    <ClCompile Include="src\mito\Debug\ConsoleLogger.cpp" />
     <ClCompile Include="src\mito\mepch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Dev|Win32'">Create</PrecompiledHeader>

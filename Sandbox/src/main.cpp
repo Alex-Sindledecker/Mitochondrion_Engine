@@ -1,4 +1,5 @@
 #include <mito/Engine.h>
+#include <mito/Debug/Debug.h>
 
 #include <iostream>
 
@@ -8,6 +9,7 @@ public:
 
 	void run() override
 	{
+		
 	}
 
 private:
