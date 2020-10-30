@@ -4,16 +4,22 @@ extern mito::Application* mito::createApp();
 
 int main(int argc, char* argv[])
 {
-	//Init systems
-	mito::Debug::init();
-
 	mito::Application* app = mito::createApp();
 
+	//Init systems
+	mito::Debug::init();
+	app->init();
+	mito::EventManager::init(app->getWindowPtr());
+
+	//Run application
 	app->run();
 
-	delete app;
-
+	//Destroy systems
+	mito::EventManager::terminate();
+	app->terminate();
 	mito::Debug::terminate();
+
+	delete app;
 
 	return 0;
 }

@@ -2,8 +2,8 @@
 
 #include "Core/MitchondiraAPI.h"
 #include "Core/Time.h"
-#include "LogTarget.h"
 #include "Core/StringTools.h"
+#include "LogTarget.h"
 
 #include <mutex>
 

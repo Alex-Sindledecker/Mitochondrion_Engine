@@ -7,7 +7,8 @@
 #endif
 
 #ifdef NDEBUG
-#define MITO_ASSERT 
+#define MITO_ASSERT(expr) 
+#define MITO_LOG(msg)
 #else
 #include <assert.h>
 #define MITO_ASSERT(expr) assert(expr)
@@ -19,4 +20,5 @@ namespace mito
 	using u32_t = unsigned int;
 	using u16_t = unsigned short int;
 	using u8_t =  unsigned char;
+	using guid_t = u64_t;
 }

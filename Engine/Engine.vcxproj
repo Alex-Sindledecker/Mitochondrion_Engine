@@ -243,6 +243,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\mito\Core\Event.h" />
     <ClInclude Include="src\mito\Debug\Debug.h" />
     <ClInclude Include="external\include\glad\glad.h" />
     <ClInclude Include="src\mito\Core\Application.h" />
@@ -257,9 +258,11 @@
     <ClInclude Include="src\mito\Debug\ConsoleLogger.h" />
     <ClInclude Include="src\mito\Debug\LogTarget.h" />
     <ClInclude Include="src\mito\Engine.h" />
+    <ClInclude Include="src\mito\Layers\Layer.h" />
     <ClInclude Include="src\mito\mepch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\mito\Core\Event.cpp" />
     <ClCompile Include="src\mito\Debug\Debug.cpp" />
     <ClCompile Include="external\include\glad.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
