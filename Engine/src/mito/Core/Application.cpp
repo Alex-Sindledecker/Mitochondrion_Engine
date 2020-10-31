@@ -31,6 +31,8 @@ namespace mito
 
 			deltaTime = gameLoopClock.tick();
 
+			
+
 			beginFrame();
 			endFrame();
 
@@ -43,6 +45,21 @@ namespace mito
 	GLFWwindow* Application::getWindowPtr()
 	{
 		return window;
+	}
+
+	void Application::attachLayer(const char* name)
+	{
+		layers[name]->onAttach();
+	}
+
+	void Application::detachLayer(const char* name)
+	{
+		layers[name]->onDetach();
+	}
+
+	void Application::deleteLayer(const char* name)
+	{
+		layers.erase(name);
 	}
 
 	void Application::onProgramStart() {}

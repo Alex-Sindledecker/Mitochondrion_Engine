@@ -43,6 +43,13 @@ namespace mito
 			}
 		}
 
+		template<class... Ts>
+		static void log(const std::string& message, Ts... args)
+		{
+			std::string time = std::move(Clock::getGlobalTimeAsMSM());
+			logTarget->logMessage(buildFormattedString(time + "(MESSAGE!) -> " + message, args...).c_str());
+		}
+
 	private:
 		static u8_t logLevel;
 		static LogTarget* logTarget;

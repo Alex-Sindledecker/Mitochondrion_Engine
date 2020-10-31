@@ -1,26 +1,7 @@
 #include <mito/Engine.h>
-#include <mito/Core/Event.h>
+#include <mito/Core/EntryPoint.h>
 
-#include <iostream>
-
-class TestLayer : public mito::Layer
-{
-public:
-	virtual void onFrameStart() override
-	{
-	}
-	virtual void onFrameEnd() override
-	{
-	}
-	virtual void onEvent(mito::Event& event) override
-	{
-		mito::Debug::log(mito::Debug::MSG_LOG, "Event occurred!");
-		/*
-		if (mito::isKeyPressed(mito::Key::RIGHT))
-			mito::Debug::log(mito::Debug::MSG_LOG, "Right arrow key pressed!");
-		*/
-	}
-};
+#include "ExampleLayer.h"
 
 class SandboxApp : public mito::Application
 {
@@ -28,18 +9,14 @@ public:
 
 	void onProgramStart() override
 	{
-		layers.push_back(new TestLayer);
+		createLayer<ExampleLayer>("MyLayer");
+		attachLayer("MyLayer");
+		detachLayer("MyLayer");
 	}
 
 	void beginFrame() override
 	{
-		mito::Event event;
-		while (mito::EventManager::pollEvent(&event))
-		{
-			if (event.type == mito::EventType::KeyPress)
-				if (event.key == mito::Key::SPACE)
-					std::cout << "Space button pressed!" << std::endl;
-		}
+		
 	}
 
 	void endFrame() override

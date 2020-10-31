@@ -23,12 +23,20 @@ namespace mito
 		void run();
 		GLFWwindow* getWindowPtr();
 
+		void attachLayer(const char* name);
+		void detachLayer(const char* name);
+		void deleteLayer(const char* name);
+
+		template<class T, typename = typename std::enable_if<std::is_base_of<Layer, T>::value>::type>
+		void createLayer(const char* name)
+		{
+			layers[name] = std::shared_ptr<T>(new T);
+		}
+
 		virtual void onProgramStart();
 		virtual void beginFrame();
 		virtual void endFrame();
 		virtual void onProgramEnd();
-
-		std::vector<Layer*> layers;
 
 	protected:
 		double deltaTime;
@@ -39,7 +47,7 @@ namespace mito
 		GLFWwindow* window;
 		Viewport windowViewport;
 		Clock gameLoopClock;
-		
+		std::unordered_map<const char*, std::shared_ptr<Layer>> layers;
 	};
 
 	Application* createApp();

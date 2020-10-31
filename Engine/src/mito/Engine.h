@@ -10,4 +10,4 @@
 #include "Core/MitchondiraAPI.h"
 #include "Debug/Debug.h"
 #include "Core/Application.h"
-#include "Core/EntryPoint.h"
+#include "Core/Event.h"
