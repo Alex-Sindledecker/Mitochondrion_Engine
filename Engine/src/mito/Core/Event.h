@@ -1,6 +1,6 @@
 #pragma once
 
-#include "MitchondiraAPI.h"
+#include "mito/Core/MitochondriaAPI.h"
 
 #include <GLFW/glfw3.h>
 

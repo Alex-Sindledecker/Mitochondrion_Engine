@@ -10,6 +10,7 @@ void ExampleLayer::onFrameEnd()
 
 void ExampleLayer::onEvent(mito::Event& event)
 {
+	
 }
 
 void ExampleLayer::onAttach()

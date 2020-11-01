@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Core/MitchondiraAPI.h"
-#include "Core/Event.h"
+#include "mito/Core/MitochondriaAPI.h"
+#include "mito/Core/Event.h"
 
 namespace mito
 {

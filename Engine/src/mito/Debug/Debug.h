@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Core/MitchondiraAPI.h"
-#include "Core/Time.h"
-#include "Core/StringTools.h"
-#include "LogTarget.h"
+#include "mito/Core/MitochondriaAPI.h"
+#include "mito/Core/Time.h"
+#include "mito/Core/StringTools.h"
+#include "mito/Debug/LogTarget.h"
 
 #include <mutex>
 

@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Core/MitchondiraAPI.h"
-#include "Core/Time.h"
-#include "Layers/Layer.h"
+#include "mito/Core/MitochondriaAPI.h"
+#include "mito/Core/Time.h"
+#include "mito/Layers/Layer.h"
 
 #include <GLFW/glfw3.h>
 #include <vector>

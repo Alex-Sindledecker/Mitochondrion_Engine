@@ -27,9 +27,6 @@
     <ClInclude Include="src\mito\Core\FileManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\mito\Core\MitchondiraAPI.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\mito\Core\StackAllocator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -45,12 +42,6 @@
     <ClInclude Include="src\mito\Core\UniquePointer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\mito\mepch.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\mito\Engine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\mito\Debug\Debug.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -64,6 +55,27 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\mito\Core\Event.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mito\Engine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mito-platform\OpenGL\GLCore.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mito-platform\OpenGL\ShaderProgram.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mito-platform\OpenGL\Texture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mito-platform\OpenGL\VertexArray.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mito\Core\MitochondriaAPI.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mepch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -86,9 +98,6 @@
     <ClCompile Include="src\mito\Core\Time.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\mito\mepch.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\mito\Debug\Debug.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -96,6 +105,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\mito\Core\Event.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mito-platform\OpenGL\GLCore.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mepch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

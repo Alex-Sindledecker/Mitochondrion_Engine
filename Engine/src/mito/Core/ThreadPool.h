@@ -1,6 +1,6 @@
 #pragma once
 
-#include "MitchondiraAPI.h"
+#include "mito/Core/MitochondriaAPI.h"
 
 #include <functional>
 #include <mutex>

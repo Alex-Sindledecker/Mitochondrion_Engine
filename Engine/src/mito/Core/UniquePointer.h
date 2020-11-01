@@ -1,5 +1,7 @@
 #pragma once
 
+#include "mito/Core/MitochondriaAPI.h"
+
 namespace mito
 {
 

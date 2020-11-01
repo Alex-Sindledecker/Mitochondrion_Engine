@@ -7,7 +7,7 @@
 /// TODO: enter a description here
 /// 
 
-#include "Core/MitchondiraAPI.h"
-#include "Debug/Debug.h"
-#include "Core/Application.h"
-#include "Core/Event.h"
+#include "mito/Core/MitochondriaAPI.h"
+#include "mito/Debug/Debug.h"
+#include "mito/Core/Application.h"
+#include "mito/Core/Event.h"

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Core/MitchondiraAPI.h"
+#include "mito/Core/MitochondriaAPI.h"
 
 namespace mito
 {

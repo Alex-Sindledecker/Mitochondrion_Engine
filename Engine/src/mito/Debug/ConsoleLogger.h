@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Debug/Debug.h"
+#include "mito/Debug/Debug.h"
 
 namespace mito
 {
