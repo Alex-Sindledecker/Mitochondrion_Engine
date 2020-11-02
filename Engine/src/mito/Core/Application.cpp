@@ -1,6 +1,8 @@
 #include "mepch.h"
 #include "Application.h"
 
+#include "mito-platform/OpenGL/GLCore.h"
+
 namespace mito
 {
 
@@ -72,10 +74,12 @@ namespace mito
 
 	void Application::createWindow()
 	{
+		auto version = gl::getGLVersion();
+
 		glfwInit();
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, version.major);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, version.minor);
 		window = glfwCreateWindow(windowViewport.width, windowViewport.height, "My Application", nullptr, nullptr);
 		MITO_ASSERT(window != nullptr);
 		glfwMakeContextCurrent(window);

@@ -2,13 +2,18 @@
 
 #include "mito/Core/MitochondriaAPI.h"
 
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-
 namespace mito::gl
 {
 
-	void init();
-	void terminate();
+	struct OpenGLVersion
+	{
+		u32_t major;
+		u32_t minor;
+		const char* str;
+	};
+
+	void MITO_API init();
+	void MITO_API terminate();
+	const OpenGLVersion MITO_API getGLVersion();
 
 }

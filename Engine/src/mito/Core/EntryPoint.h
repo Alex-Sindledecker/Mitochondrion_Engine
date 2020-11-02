@@ -10,6 +10,7 @@ int main(int argc, char* argv[])
 	mito::Debug::init();
 	app->init();
 	mito::EventManager::init(app->getWindowPtr());
+	mito::gl::init();
 
 	//Run application
 	app->run();

@@ -9,6 +9,7 @@ namespace mito
 	class MITO_API Layer
 	{
 	public:
+		virtual ~Layer() = 0 {}
 		virtual void onAttach() = 0;
 		virtual void onDetach() = 0;
 		virtual void onFrameStart() = 0;

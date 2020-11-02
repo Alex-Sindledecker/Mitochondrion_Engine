@@ -243,6 +243,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="external\include\stbimage.h" />
     <ClInclude Include="src\mito-platform\OpenGL\GLCore.h" />
     <ClInclude Include="src\mito-platform\OpenGL\ShaderProgram.h" />
     <ClInclude Include="src\mito-platform\OpenGL\Texture.h" />
@@ -267,6 +268,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\mito-platform\OpenGL\GLCore.cpp" />
+    <ClCompile Include="src\mito-platform\OpenGL\ShaderProgram.cpp" />
+    <ClCompile Include="src\mito-platform\OpenGL\Texture.cpp" />
+    <ClCompile Include="src\mito-platform\OpenGL\VertexArray.cpp" />
     <ClCompile Include="src\mito\Core\Event.cpp" />
     <ClCompile Include="src\mito\Debug\Debug.cpp" />
     <ClCompile Include="external\include\glad.c">
@@ -291,6 +295,10 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Dev|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\mito\Rendering\Shaders\tempFragment.glsl" />
+    <None Include="src\mito\Rendering\Shaders\tempVertex.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

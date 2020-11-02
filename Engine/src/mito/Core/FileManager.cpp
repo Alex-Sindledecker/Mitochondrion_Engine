@@ -1,7 +1,7 @@
 #include "mepch.h"
 #include "FileManager.h"
 
-//#include "Debug/Debug.h"
+#include "mito/Debug/Debug.h"
 
 namespace mito
 {
@@ -12,7 +12,7 @@ namespace mito
 
 		if (!file.is_open())
 		{
-			//Debug::logError("Could not open file: {}!", src);
+			Debug::log(Debug::ERR_LOG, "Could not open file: {}!", src);
 			dest->assign("");
 			file.close();
 			return;
@@ -38,7 +38,7 @@ namespace mito
 
 		if (!file.is_open())
 		{
-			//Debug::logError("There was an error when attempting to save to {}!", dest);
+			Debug::log(Debug::ERR_LOG, "Could not aquire file: {}!", dest);
 			return;
 		}
 		

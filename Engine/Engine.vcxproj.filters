@@ -78,6 +78,9 @@
     <ClInclude Include="src\mepch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="external\include\stbimage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="external\include\glad.c">
@@ -113,5 +116,18 @@
     <ClCompile Include="src\mepch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\mito-platform\OpenGL\ShaderProgram.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mito-platform\OpenGL\VertexArray.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mito-platform\OpenGL\Texture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\mito\Rendering\Shaders\tempVertex.glsl" />
+    <None Include="src\mito\Rendering\Shaders\tempFragment.glsl" />
   </ItemGroup>
 </Project>

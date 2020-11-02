@@ -18,6 +18,8 @@ namespace mito
 	class MITO_API Application
 	{
 	public:
+		virtual ~Application() {}
+
 		void init();
 		void terminate();
 		void run();
