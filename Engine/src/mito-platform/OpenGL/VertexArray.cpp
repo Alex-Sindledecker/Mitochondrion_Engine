@@ -1,5 +1,6 @@
 #include "mepch.h"
 #include "VertexArray.h"
+#include "ShaderProgram.h"
 
 namespace mito::gl
 {
@@ -60,12 +61,28 @@ namespace mito::gl
             glBindBuffer(GL_ARRAY_BUFFER, attribute.vbo);
             glEnableVertexAttribArray(i);
             glVertexAttribPointer(i, attribute.length, attribute.dataType, GL_FALSE, attribute.stride, attribute.offset);
+            glVertexAttribDivisor(i, attribute.divisor);
         }
         glBindVertexArray(0);
         glBindBuffer(GL_ARRAY_BUFFER, 0);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
     
         return vao;
+    }
+
+    void deleteVertexBuffer(VertexBuffer vbo)
+    {
+        glDeleteBuffers(1, &vbo);
+    }
+
+    void deleteElementBuffer(ElementBuffer ebo)
+    {
+        glDeleteBuffers(1, &ebo);
+    }
+
+    void deleteVertexArray(VertexArray vao)
+    {
+        glDeleteVertexArrays(1, &vao);
     }
 
 }

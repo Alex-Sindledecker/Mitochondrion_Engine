@@ -126,8 +126,4 @@
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="src\mito\Rendering\Shaders\tempVertex.glsl" />
-    <None Include="src\mito\Rendering\Shaders\tempFragment.glsl" />
-  </ItemGroup>
 </Project>

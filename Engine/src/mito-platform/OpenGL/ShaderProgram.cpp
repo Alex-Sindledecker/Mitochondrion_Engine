@@ -17,8 +17,8 @@ namespace mito::gl
 
 		GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
 		GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-		glShaderSource(vertexShader, 1, &vertexSrc, 0);
-		glShaderSource(fragmentShader, 1, &fragmentSrc, 0);
+		glShaderSource(vertexShader, 1, &vertexSrc, nullptr);
+		glShaderSource(fragmentShader, 1, &fragmentSrc, nullptr);
 		glCompileShader(vertexShader);
 		glCompileShader(fragmentShader);
 
@@ -78,12 +78,18 @@ namespace mito::gl
 		glDeleteShader(geometryShader);
 	}
 
+	ShaderProgram::ShaderProgram(ShaderProgram&& oldShader)
+	{
+		programID = oldShader.programID;
+		oldShader.programID = 0;
+	}
+
 	ShaderProgram::~ShaderProgram()
 	{
 		glDeleteProgram(programID);
 	}
 
-	void ShaderProgram::bindProgram()
+	void ShaderProgram::bind()
 	{
 		glUseProgram(programID);
 	}
@@ -121,6 +127,20 @@ namespace mito::gl
 	void ShaderProgram::setUniformInt(const char* position, int value) const
 	{
 		glUniform1i(glGetUniformLocation(programID, position), value);
+	}
+
+	ShaderProgram& ShaderProgram::operator=(ShaderProgram&& oldShader) noexcept
+	{
+		programID = oldShader.programID;
+		oldShader.programID = 0;
+		return *this;
+	}
+
+	ShaderProgram& ShaderProgram::operator=(ShaderProgram& oldShader) noexcept
+	{
+		programID = oldShader.programID;
+		oldShader.programID = 0;
+		return *this;
 	}
 
 	void ShaderProgram::checkShaderCompileStatus(GLuint id, const char* path)

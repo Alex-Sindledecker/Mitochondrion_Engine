@@ -9,14 +9,15 @@ int main(int argc, char* argv[])
 	//Init systems
 	mito::Debug::init();
 	app->init();
-	mito::EventManager::init(app->getWindowPtr());
 	mito::gl::init();
+	mito::EventManager::init(app->getWindowPtr());
 
 	//Run application
 	app->run();
 
 	//Destroy systems
 	mito::EventManager::terminate();
+	mito::gl::terminate();
 	app->terminate();
 	mito::Debug::terminate();
 

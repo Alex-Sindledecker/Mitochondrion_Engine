@@ -19,6 +19,7 @@ namespace mito::gl
 		GLenum dataType;
 		GLsizei stride;
 		const void* offset;
+		GLuint divisor = 0;
 	};
 
 	VertexBuffer MITO_API createStaticVertexBuffer(size_t bufferSize, const void* buffer);
@@ -26,5 +27,8 @@ namespace mito::gl
 	ElementBuffer MITO_API createStaticElementBuffer(size_t bufferSize, const void* buffer);
 	ElementBuffer MITO_API createDynamicElementBuffer(size_t bufferSize, const void* buffer);
 	VertexArray MITO_API createVertexArray(ElementBuffer ebo, std::vector<VertexAttribute> attributes);
+	void MITO_API deleteVertexBuffer(VertexBuffer vbo);
+	void MITO_API deleteElementBuffer(ElementBuffer ebo);
+	void MITO_API deleteVertexArray(VertexArray vao);
 
 }

@@ -10,8 +10,6 @@ namespace mito
 	{
 		windowViewport = { 0, 0, 1280, 720 };
 		createWindow();
-
-		onProgramStart();
 	}
 	
 	void Application::terminate()
@@ -24,12 +22,14 @@ namespace mito
 
 	void Application::run()
 	{
+		onProgramStart();
+
 		gameLoopClock.restart();
 
 		while (!glfwWindowShouldClose(window))
 		{
 			glfwPollEvents();
-			glClear(GL_COLOR_BUFFER_BIT);
+			gl::clear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 			deltaTime = gameLoopClock.tick();
 
@@ -83,10 +83,6 @@ namespace mito
 		window = glfwCreateWindow(windowViewport.width, windowViewport.height, "My Application", nullptr, nullptr);
 		MITO_ASSERT(window != nullptr);
 		glfwMakeContextCurrent(window);
-
-		MITO_ASSERT(gladLoadGLLoader((GLADloadproc)glfwGetProcAddress) == true);
-
-		glClearColor(0.13f, 0.32f, 0.58f, 1.f);
 	}
 
 }

@@ -2,9 +2,9 @@
 
 in vec3 color;
 
-out vec3 fragColor;
+out vec4 fragColor;
 
 void main()
 {
-	fragColor = color;
+	fragColor = vec4(color, 1);
 }
