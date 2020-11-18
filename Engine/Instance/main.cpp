@@ -1,7 +1,8 @@
+#include "mepch.h"
 #include "Application.h"
 
 int main(int argc, char** argv)
 {
-
-	return;
+	
+	return 0;
 }
