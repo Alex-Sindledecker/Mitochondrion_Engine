@@ -17,8 +17,10 @@ void ThreadPool::start(size_t size)
 	for (int i = 0; i < size; i++)
 	{
 		threads.emplace_back([=] {
+			//Thread loop
 			while (true)
 			{
+				//Get the next task and execute it
 				Task task;
 				{
 					std::unique_lock<std::mutex> lk(mutex);
