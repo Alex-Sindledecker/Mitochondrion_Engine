@@ -1,6 +1,7 @@
 #include "mepch.h"
 #include "EngineDebugger.h"
 #include "Core/Time.h"
+#include "Core/StringTools.h"
 
 #include <Windows.h>
 
@@ -38,46 +39,135 @@ void operator delete(void* mem)
 
 #endif
 
-void EngineDebugger::dumpMemoryLeaks()
+namespace EngineDebugger
 {
-#ifdef _DEBUG
-	for (int i = 0; i < allocIndex; i++)
+
+	void dumpMemoryLeaks()
 	{
-		if (*reinterpret_cast<unsigned char*>(allocs[i]) != 0xcc)
+#ifdef _DEBUG
+		for (int i = 0; i < allocIndex; i++)
 		{
-			std::cout << "Memory Leak Detected! Address : " << allocs[i] << "\nFile: " << allocInfos[i].file << ", Line: " << allocInfos[i].line << '\n';
+			if (*reinterpret_cast<unsigned char*>(allocs[i]) != 0xcc)
+			{
+				std::cout << "Memory Leak Detected! Address : " << allocs[i] << "\nFile: " << allocInfos[i].file << ", Line: " << allocInfos[i].line << '\n';
+			}
+		}
+#else
+		EngineDebugger::log("The build is not currently configured for memory leak detection!", EngineDebugger::LogType::WRN);
+#endif
+	}
+
+	void log(const std::string& message, LogType type)
+	{
+#ifdef _DEBUG
+		static HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+
+		std::string time = Time::getCurrentTimeString();
+
+		switch (type)
+		{
+		case EngineDebugger::LogType::ERR:
+			SetConsoleTextAttribute(consoleHandle, FOREGROUND_RED);
+			std::cout << "ERROR! (" << time << ")   ----> " << message << std::endl;
+			break;
+		case EngineDebugger::LogType::WRN:
+			SetConsoleTextAttribute(consoleHandle, FOREGROUND_RED | FOREGROUND_GREEN);
+			std::cout << "WARNING! (" << time << ") ----> " << message << std::endl;
+			break;
+		case EngineDebugger::LogType::MSG:
+			SetConsoleTextAttribute(consoleHandle, FOREGROUND_GREEN);
+			std::cout << "MESSAGE (" << time << ") ----> " << message << std::endl;
+			break;
+		}
+
+		SetConsoleTextAttribute(consoleHandle, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+#else
+
+#endif
+	}
+
+	void flog(const char* file, const std::string& message, LogType type)
+	{
+		std::ofstream output(file, std::ios::app);
+		if (!output.is_open())
+		{
+			log(formatString("Failed to open file {} for logging!", file), LogType::WRN);
+			return;
+		}
+
+		std::string time = Time::getCurrentTimeString();
+
+		switch (type)
+		{
+		case EngineDebugger::LogType::ERR:
+			output << "ERROR! (" << time << ")   ----> " << message << std::endl;
+			break;
+		case EngineDebugger::LogType::WRN:
+			output << "WARNING! (" << time << ") ----> " << message << std::endl;
+			break;
+		case EngineDebugger::LogType::MSG:
+			output << "MESSAGE (" << time << ") ----> " << message << std::endl;
+			break;
+		}
+
+		output.close();
+	}
+
+	void flog(std::ofstream& file, const std::string& message, LogType type)
+	{
+		std::string time = Time::getCurrentTimeString();
+
+		switch (type)
+		{
+		case EngineDebugger::LogType::ERR:
+			file << "ERROR! (" << time << ")   ----> " << message << std::endl;
+			break;
+		case EngineDebugger::LogType::WRN:
+			file << "WARNING! (" << time << ") ----> " << message << std::endl;
+			break;
+		case EngineDebugger::LogType::MSG:
+			file << "MESSAGE (" << time << ") ----> " << message << std::endl;
+			break;
 		}
 	}
-#else
-	//TODO: Warning, "The build is not currently configured for memory leak detection"
-#endif
-}
 
-void EngineDebugger::log(const std::string& message, LogType type)
-{
-#ifdef _DEBUG
-	static HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
-	
-	std::string time = Time::getCurrentTimeString();
+	static std::queue<ProfilingSession> sessions;
+	static const char* activeProfile;
 
-	switch (type)
+	void beginProfilingSession()
 	{
-	case EngineDebugger::LogType::ERR:
-		SetConsoleTextAttribute(consoleHandle, FOREGROUND_RED);
-		std::cout << "ERROR! (" << time << ")   ----> " << message << std::endl;
-		break;
-	case EngineDebugger::LogType::WRN:
-		SetConsoleTextAttribute(consoleHandle, FOREGROUND_RED | FOREGROUND_GREEN);
-		std::cout << "WARNING! (" << time << ") ----> " << message << std::endl;
-		break;
-	case EngineDebugger::LogType::MSG:
-		SetConsoleTextAttribute(consoleHandle, FOREGROUND_GREEN);
-		std::cout << "MESSAGE (" << time << ") ----> " << message << std::endl;
-		break;
+		sessions.push({});
+		sessions.front().duration = Time::getCurrentTime();
 	}
 
-	SetConsoleTextAttribute(consoleHandle, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
-#else
+	ProfilingSession endProfilingSession()
+	{
+		ProfilingSession session = std::move(sessions.front());
+		session.duration = Time::getCurrentTime() - session.duration;
+		sessions.pop();
+		return session;
+	}
 
-#endif
+	void beginProfile(const char* name)
+	{
+		ProfilingSession& session = sessions.front();
+		session.profiles[name] = Time::getCurrentTime();
+		activeProfile = name;
+	}
+
+	void endProfile()
+	{
+		ProfilingSession& session = sessions.front();
+		session.profiles[activeProfile] = Time::getCurrentTime() - session.profiles[activeProfile];
+	}
+
+	void printProfilingSession(ProfilingSession& session)
+	{
+		std::cout << formatString("Profiling session lasted {} seconds. {} sections were tested:", session.duration, session.profiles.size()) << std::endl;
+		for (const auto& profile : session.profiles)
+		{
+			std::cout << formatString("\"{}\": {} seconds ({}%)", profile.first, profile.second, profile.second / session.duration) << std::endl;
+		}
+	}
+
 }

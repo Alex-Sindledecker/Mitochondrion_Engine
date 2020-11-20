@@ -7,11 +7,14 @@
 #include <queue>
 #include <stack>
 #include <set>
+#include <string>
 
 //Tools
 #include <iostream>
 #include <thread>
 #include <algorithm>
 #include <stdlib.h>
+#include <fstream>
+#include <sstream>
 
 //External Resources

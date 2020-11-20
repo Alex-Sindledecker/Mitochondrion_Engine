@@ -19,11 +19,25 @@ void operator delete(void* mem);
 
 #endif
 
+#define PROFILE(function, ...) EngineDebugger::beginProfile(#function); function(__VA_ARGS__); EngineDebugger::endProfile()
+
 namespace EngineDebugger
 {
+	struct ProfilingSession
+	{
+		std::unordered_map<const char*, double> profiles;
+		double duration;
+	};
 	enum class LogType { ERR, WRN, MSG };
 
 	void dumpMemoryLeaks();
 	void log(const std::string& message, LogType type = LogType::MSG);
+	void flog(const char* file, const std::string& message, LogType type = LogType::MSG);
+	void flog(std::ofstream& file, const std::string& message, LogType type = LogType::MSG);
+	void beginProfilingSession();
+	ProfilingSession endProfilingSession();
+	void beginProfile(const char* name);
+	void endProfile();
+	void printProfilingSession(ProfilingSession& session);
 };
 

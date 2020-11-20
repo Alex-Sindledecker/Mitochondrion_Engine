@@ -9,7 +9,7 @@ namespace Time
 
     static auto startTime = std::chrono::high_resolution_clock::now();
 
-    double getElapsedTime()
+    double getCurrentTime()
     {
         auto current = std::chrono::high_resolution_clock::now() - startTime;
         return current.count() / 1000000000.0;

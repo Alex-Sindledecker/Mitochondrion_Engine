@@ -3,7 +3,7 @@
 #include <string>
 #include <sstream>
 
-static void formatString(std::stringstream& ss, std::string& string, int offset)
+static void formatString(std::stringstream& ss, const std::string& string, int offset)
 {
 	if (ss.str().length() == 0)
 		ss << string;
@@ -14,7 +14,7 @@ static void formatString(std::stringstream& ss, std::string& string, int offset)
 }
 
 template<class T, class... Ts>
-static void formatString(std::stringstream& ss, std::string& string, int offset, T arg, Ts... args)
+static void formatString(std::stringstream& ss, const std::string& string, int offset, T arg, Ts... args)
 {
 	size_t bracketPos = string.find('{', offset);
 	if (bracketPos != std::string::npos)
@@ -23,32 +23,16 @@ static void formatString(std::stringstream& ss, std::string& string, int offset,
 		if (string[bracketPos + 1] == '}')
 		{
 			ss << arg;
-			buildFormattedString(ss, string, bracketPos + 2, args...);
+			formatString(ss, string, bracketPos + 2, args...);
 		}
 		else
 		{
 			ss << '{';
-			buildFormattedString(ss, string, bracketPos + 1, arg, args...);
+			formatString(ss, string, bracketPos + 1, arg, args...);
 		}
 	}
 	else
 		ss << string.substr(offset);
-}
-
-template<class... Ts>
-static void formatString(std::string* string, Ts... args)
-{
-	std::stringstream ss;
-	formatString(ss, *string, 0, args...);
-	*string = ss.str();
-}
-
-template<class... Ts>
-static void formatString(std::string* dest, const std::string& src, Ts... args)
-{
-	std::stringstream ss;
-	formatString(ss, src, 0, args...);
-	*dest = ss.str();
 }
 
 template<class... Ts>
