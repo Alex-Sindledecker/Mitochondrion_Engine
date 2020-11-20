@@ -18,3 +18,5 @@
 #include <sstream>
 
 //External Resources
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
