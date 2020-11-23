@@ -1,6 +1,0 @@
-[submodule "Engine/_external/include/imgui"]
-	path = Engine/_external/include/imgui
-	url = https://github.com/ocornut/imgui/
-[submodule "Engine/_external/include/glm"]
-	path = Engine/_external/include/glm
-	url = https://github.com/g-truc/glm
