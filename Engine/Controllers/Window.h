@@ -17,6 +17,7 @@ public:
 	~Window();
 
 	void close();
+	void update();
 	Viewport getViewport();
 	glm::vec2 getSize();
 	bool shouldClose();

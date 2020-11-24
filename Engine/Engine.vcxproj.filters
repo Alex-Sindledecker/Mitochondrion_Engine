@@ -21,16 +21,7 @@
     <ClInclude Include="Instance\Application.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Core\ThreadPool.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Core\Debug\EngineDebugger.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\StringTools.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Time.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Controllers\Window.h">
@@ -60,6 +51,21 @@
     <ClInclude Include="Controllers\EventController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Core\Utilities.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Drivers\OpenGL\GLCore.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Drivers\OpenGL\ShaderProgram.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Drivers\OpenGL\Texture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Drivers\OpenGL\VertexArray.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mepch.cpp">
@@ -71,13 +77,7 @@
     <ClCompile Include="Instance\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Core\ThreadPool.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Core\Debug\EngineDebugger.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Time.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Controllers\Window.cpp">
@@ -99,6 +99,21 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Controllers\EventController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Utilities.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Drivers\OpenGL\GLCore.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Drivers\OpenGL\ShaderProgram.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Drivers\OpenGL\Texture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Drivers\OpenGL\VertexArray.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

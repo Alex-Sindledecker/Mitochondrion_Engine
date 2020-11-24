@@ -28,6 +28,11 @@ void Window::close()
 	glfwTerminate();
 }
 
+void Window::update()
+{
+	glfwSwapBuffers(window);
+}
+
 Viewport Window::getViewport()
 {
 	Viewport viewport;

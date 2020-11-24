@@ -171,11 +171,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Core\StringTools.h" />
-    <ClInclude Include="Core\ThreadPool.h" />
     <ClInclude Include="Core\Debug\EngineDebugger.h" />
-    <ClInclude Include="Core\Time.h" />
     <ClInclude Include="Controllers\EventController.h" />
+    <ClInclude Include="Core\Utilities.h" />
+    <ClInclude Include="Drivers\OpenGL\GLCore.h" />
+    <ClInclude Include="Drivers\OpenGL\ShaderProgram.h" />
+    <ClInclude Include="Drivers\OpenGL\Texture.h" />
+    <ClInclude Include="Drivers\OpenGL\VertexArray.h" />
     <ClInclude Include="Instance\Application.h" />
     <ClInclude Include="mepch.h" />
     <ClInclude Include="Controllers\Window.h" />
@@ -188,10 +190,13 @@
     <ClInclude Include="_external\include\stbimage.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Core\ThreadPool.cpp" />
     <ClCompile Include="Core\Debug\EngineDebugger.cpp" />
-    <ClCompile Include="Core\Time.cpp" />
     <ClCompile Include="Controllers\EventController.cpp" />
+    <ClCompile Include="Core\Utilities.cpp" />
+    <ClCompile Include="Drivers\OpenGL\GLCore.cpp" />
+    <ClCompile Include="Drivers\OpenGL\ShaderProgram.cpp" />
+    <ClCompile Include="Drivers\OpenGL\Texture.cpp" />
+    <ClCompile Include="Drivers\OpenGL\VertexArray.cpp" />
     <ClCompile Include="Instance\Application.cpp" />
     <ClCompile Include="Instance\main.cpp" />
     <ClCompile Include="mepch.cpp">

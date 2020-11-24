@@ -1,7 +1,6 @@
 #include "mepch.h"
 #include "EngineDebugger.h"
-#include "Core/Time.h"
-#include "Core/StringTools.h"
+#include "Core/Utilities.h"
 
 #include <Windows.h>
 
@@ -62,7 +61,7 @@ namespace EngineDebugger
 #ifdef _DEBUG
 		static HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
 
-		std::string time = Time::getCurrentTimeString();
+		std::string time = util::getCurrentTimeString();
 
 		switch (type)
 		{
@@ -91,11 +90,11 @@ namespace EngineDebugger
 		std::ofstream output(file, std::ios::app);
 		if (!output.is_open())
 		{
-			log(formatString("Failed to open file {} for logging!", file), LogType::WRN);
+			log(util::formatString("Failed to open file {} for logging!", file), LogType::WRN);
 			return;
 		}
 
-		std::string time = Time::getCurrentTimeString();
+		std::string time = util::getCurrentTimeString();
 
 		switch (type)
 		{
@@ -115,7 +114,7 @@ namespace EngineDebugger
 
 	void flog(std::ofstream& file, const std::string& message, LogType type)
 	{
-		std::string time = Time::getCurrentTimeString();
+		std::string time = util::getCurrentTimeString();
 
 		switch (type)
 		{
@@ -137,13 +136,13 @@ namespace EngineDebugger
 	void beginProfilingSession()
 	{
 		sessions.push({});
-		sessions.front().duration = Time::getCurrentTime();
+		sessions.front().duration = util::getCurrentTime();
 	}
 
 	ProfilingSession endProfilingSession()
 	{
 		ProfilingSession session = std::move(sessions.front());
-		session.duration = Time::getCurrentTime() - session.duration;
+		session.duration = util::getCurrentTime() - session.duration;
 		sessions.pop();
 		return session;
 	}
@@ -151,22 +150,22 @@ namespace EngineDebugger
 	void beginProfile(const char* name)
 	{
 		ProfilingSession& session = sessions.front();
-		session.profiles[name] = Time::getCurrentTime();
+		session.profiles[name] = util::getCurrentTime();
 		activeProfile = name;
 	}
 
 	void endProfile()
 	{
 		ProfilingSession& session = sessions.front();
-		session.profiles[activeProfile] = Time::getCurrentTime() - session.profiles[activeProfile];
+		session.profiles[activeProfile] = util::getCurrentTime() - session.profiles[activeProfile];
 	}
 
 	void printProfilingSession(ProfilingSession& session)
 	{
-		std::cout << formatString("Profiling session lasted {} seconds. {} sections were tested:", session.duration, session.profiles.size()) << std::endl;
+		std::cout << util::formatString("Profiling session lasted {} seconds. {} sections were tested:", session.duration, session.profiles.size()) << std::endl;
 		for (const auto& profile : session.profiles)
 		{
-			std::cout << formatString("\"{}\": {} seconds ({}%)", profile.first, profile.second, profile.second / session.duration) << std::endl;
+			std::cout << util::formatString("\"{}\": {} seconds ({}%)", profile.first, profile.second, profile.second / session.duration) << std::endl;
 		}
 	}
 
