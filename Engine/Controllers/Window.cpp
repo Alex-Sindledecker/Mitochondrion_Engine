@@ -36,7 +36,10 @@ void Window::update()
 Viewport Window::getViewport()
 {
 	Viewport viewport;
-	glfwGetWindowPos(window, &viewport.x, &viewport.y);
+	int x, y;
+	glfwGetWindowPos(window, &x, &y);
+	viewport.x = x;
+	viewport.y = y;
 	viewport.width = width;
 	viewport.height = height;
 	return viewport;
@@ -50,6 +53,11 @@ glm::vec2 Window::getSize()
 bool Window::shouldClose()
 {
 	return glfwWindowShouldClose(window);
+}
+
+GLFWwindow* Window::getGlfwWindowHandle()
+{
+	return window;
 }
 
 void Window::setWindowHints()

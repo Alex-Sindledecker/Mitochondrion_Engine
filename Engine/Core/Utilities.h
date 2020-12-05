@@ -9,12 +9,10 @@
 
 namespace util
 {
-
-	struct Image
-	{
-		int width, height, channels;
-		unsigned char* pixels;
-	};
+	using u64 = unsigned long long;
+	using u32 = unsigned int;
+	using u16 = unsigned short;
+	using byte = unsigned char;
 
 	static void formatString(std::stringstream& ss, const std::string& string, int offset)
 	{
@@ -94,7 +92,7 @@ namespace util
 		}
 
 		//Gets the number of tasks currently on the queue
-		inline const unsigned int getTaskCount() { return tasks.size(); }
+		inline const u32 getTaskCount() { return tasks.size(); }
 
 	private:
 		std::vector<std::thread> threads;
@@ -105,13 +103,35 @@ namespace util
 		std::atomic<bool> drain = false;
 	};
 
+	class StackAllocator
+	{
+		using Marker = byte*;
+	public:
+		StackAllocator(size_t bufferSize);
+		~StackAllocator();
+
+		template<class T>
+		T* alloc(size_t size)
+		{
+			T* buffer = static_cast<T*>(allocMarker);
+			allocMarker += sizeof(T) * size;
+			return buffer;
+		}
+
+		template<class T>
+		void free(T* buffer)
+		{
+			Marker bufferLocation = static_cast<Marker>(buffer);
+		}
+
+	private:
+		byte* buffer;
+		Marker allocMarker;
+	};
+
 	//Gets the time since the program started
 	double getCurrentTime();
 	//Stores the current time in dest as MIN:SEC:MIL
 	std::string getCurrentTimeString();
-
-	Image loadImage(const char* src);
-	void freeImage(Image* image);
-	void readFile(const std::string& src, std::string* dest);
 
 }

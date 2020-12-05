@@ -98,14 +98,14 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>mepch.h</PrecompiledHeaderFile>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <AdditionalIncludeDirectories>$(ProjectDir)_external\include\glm\;$(ProjectDir)_external\include\;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\VulkanSDK\1.2.154.0\Include\;$(ProjectDir)_external\include\glm\;$(ProjectDir)_external\include\;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)_external\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\VulkanSDK\1.2.154.0\Lib;$(ProjectDir)_external\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>vulkan-1.lib;opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -118,7 +118,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>mepch.h</PrecompiledHeaderFile>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <AdditionalIncludeDirectories>$(ProjectDir)_external\include\glm\;$(ProjectDir)_external\include\;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\VulkanSDK\1.2.154.0\Include\;$(ProjectDir)_external\include\glm\;$(ProjectDir)_external\include\;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
@@ -126,8 +126,8 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)_external\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\VulkanSDK\1.2.154.0\Lib;$(ProjectDir)_external\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>vulkan-1.lib;opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -138,14 +138,14 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>mepch.h</PrecompiledHeaderFile>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <AdditionalIncludeDirectories>$(ProjectDir)_external\include\glm\;$(ProjectDir)_external\include\;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\VulkanSDK\1.2.154.0\Include\;$(ProjectDir)_external\include\glm\;$(ProjectDir)_external\include\;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)_external\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\VulkanSDK\1.2.154.0\Lib;$(ProjectDir)_external\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>vulkan-1.lib;opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -158,7 +158,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>mepch.h</PrecompiledHeaderFile>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <AdditionalIncludeDirectories>$(ProjectDir)_external\include\glm\;$(ProjectDir)_external\include\;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\VulkanSDK\1.2.154.0\Include\;$(ProjectDir)_external\include\glm\;$(ProjectDir)_external\include\;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
@@ -166,18 +166,24 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)_external\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\VulkanSDK\1.2.154.0\Lib;$(ProjectDir)_external\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>vulkan-1.lib;opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Controllers\AssetController.h" />
+    <ClInclude Include="Controllers\RenderController.h" />
     <ClInclude Include="Core\Debug\EngineDebugger.h" />
     <ClInclude Include="Controllers\EventController.h" />
+    <ClInclude Include="Core\Loaders.h" />
+    <ClInclude Include="Core\Model.h" />
     <ClInclude Include="Core\Utilities.h" />
     <ClInclude Include="Drivers\OpenGL\GLCore.h" />
     <ClInclude Include="Drivers\OpenGL\ShaderProgram.h" />
     <ClInclude Include="Drivers\OpenGL\Texture.h" />
     <ClInclude Include="Drivers\OpenGL\VertexArray.h" />
+    <ClInclude Include="Drivers\OpenGL\Framebuffer.h" />
+    <ClInclude Include="Drivers\Vulkan\VulkanCore.h" />
     <ClInclude Include="Instance\Application.h" />
     <ClInclude Include="mepch.h" />
     <ClInclude Include="Controllers\Window.h" />
@@ -190,13 +196,19 @@
     <ClInclude Include="_external\include\stbimage.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Controllers\AssetController.cpp" />
+    <ClCompile Include="Controllers\RenderController.cpp" />
     <ClCompile Include="Core\Debug\EngineDebugger.cpp" />
     <ClCompile Include="Controllers\EventController.cpp" />
+    <ClCompile Include="Core\Loaders.cpp" />
+    <ClCompile Include="Core\Model.cpp" />
     <ClCompile Include="Core\Utilities.cpp" />
     <ClCompile Include="Drivers\OpenGL\GLCore.cpp" />
     <ClCompile Include="Drivers\OpenGL\ShaderProgram.cpp" />
     <ClCompile Include="Drivers\OpenGL\Texture.cpp" />
     <ClCompile Include="Drivers\OpenGL\VertexArray.cpp" />
+    <ClCompile Include="Drivers\OpenGL\Framebuffer.cpp" />
+    <ClCompile Include="Drivers\Vulkan\VulkanCore.cpp" />
     <ClCompile Include="Instance\Application.cpp" />
     <ClCompile Include="Instance\main.cpp" />
     <ClCompile Include="mepch.cpp">
@@ -236,6 +248,10 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\shaders\testFragment.glsl" />
+    <None Include="res\shaders\testVertex.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

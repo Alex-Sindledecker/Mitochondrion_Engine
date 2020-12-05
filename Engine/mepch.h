@@ -1,5 +1,7 @@
 #pragma once
 
+//#define USE_VULKAN
+
 //Data structures
 #include <unordered_map>
 #include <array>
@@ -18,5 +20,5 @@
 #include <sstream>
 
 //External Resources
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>

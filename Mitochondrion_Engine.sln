@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Engine", "Engine\Engine.vcxproj", "{3937B062-C39F-4431-B5E4-163DD8565CF3}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AssetPipelineTools", "AssetPipelineTools\AssetPipelineTools.vcxproj", "{29CA850B-F63B-476C-9FBD-D114F0FA9BCA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -27,6 +29,18 @@ Global
 		{3937B062-C39F-4431-B5E4-163DD8565CF3}.Release|x64.Build.0 = Release|x64
 		{3937B062-C39F-4431-B5E4-163DD8565CF3}.Release|x86.ActiveCfg = Release|Win32
 		{3937B062-C39F-4431-B5E4-163DD8565CF3}.Release|x86.Build.0 = Release|Win32
+		{29CA850B-F63B-476C-9FBD-D114F0FA9BCA}.Debug|x64.ActiveCfg = Debug|x64
+		{29CA850B-F63B-476C-9FBD-D114F0FA9BCA}.Debug|x64.Build.0 = Debug|x64
+		{29CA850B-F63B-476C-9FBD-D114F0FA9BCA}.Debug|x86.ActiveCfg = Debug|Win32
+		{29CA850B-F63B-476C-9FBD-D114F0FA9BCA}.Debug|x86.Build.0 = Debug|Win32
+		{29CA850B-F63B-476C-9FBD-D114F0FA9BCA}.Dev|x64.ActiveCfg = Debug|x64
+		{29CA850B-F63B-476C-9FBD-D114F0FA9BCA}.Dev|x64.Build.0 = Debug|x64
+		{29CA850B-F63B-476C-9FBD-D114F0FA9BCA}.Dev|x86.ActiveCfg = Debug|Win32
+		{29CA850B-F63B-476C-9FBD-D114F0FA9BCA}.Dev|x86.Build.0 = Debug|Win32
+		{29CA850B-F63B-476C-9FBD-D114F0FA9BCA}.Release|x64.ActiveCfg = Release|x64
+		{29CA850B-F63B-476C-9FBD-D114F0FA9BCA}.Release|x64.Build.0 = Release|x64
+		{29CA850B-F63B-476C-9FBD-D114F0FA9BCA}.Release|x86.ActiveCfg = Release|Win32
+		{29CA850B-F63B-476C-9FBD-D114F0FA9BCA}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

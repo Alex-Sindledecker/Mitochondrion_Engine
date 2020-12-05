@@ -49,10 +49,10 @@ namespace gl
 		glBindVertexArray(0);
 	}
 
-	void _drawElementsInstanced(VertexArray vao, GLuint vertexCount, GLuint instanceCount)
+	void _drawElementsInstanced(VertexArray vao, GLuint vertexBufferSize, GLuint instanceCount)
 	{
 		glBindVertexArray(vao);
-		glDrawElementsInstanced(GL_TRIANGLES, vertexCount, GL_UNSIGNED_INT, nullptr, instanceCount);
+		glDrawElementsInstanced(GL_TRIANGLES, vertexBufferSize, GL_UNSIGNED_INT, nullptr, instanceCount);
 		glBindVertexArray(0);
 	}
 

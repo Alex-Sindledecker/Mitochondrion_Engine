@@ -1,7 +1,10 @@
 #include "mepch.h"
 #include "Application.h"
 
-#include "Drivers/OpenGL/GLCore.h"
+#include "Core/Loaders.h"
+
+RenderController& Application::renderer = RenderController::get();
+AssetController& Application::assetManager = AssetController::get();
 
 Application::Application(Version version, const char* name)
 {
@@ -13,10 +16,21 @@ Application::~Application()
 {
 }
 
+MeshID meshID;
 void Application::init()
 {
 	window.reset(NEW Window(name));
-	gl::init();
+	renderer.init(*window.get());
+	assetManager.init();
+
+	EngineDebugger::beginProfilingSession("Asset Loading");
+
+	DBG_PROFILE2(auto meshBuffer, addBGLSmesh, "res/models/sponza.bgls");
+	DBG_PROFILE2(meshID, renderer.addBGLSmesh, meshBuffer);
+
+	EngineDebugger::ProfilingSession assetLoadingSession = EngineDebugger::endProfilingSession();
+
+	EngineDebugger::printProfilingSession(assetLoadingSession);
 }
 
 void Application::run()
@@ -28,8 +42,7 @@ void Application::run()
 
 void Application::terminate()
 {
-
-	gl::terminate();
+	renderer.terminate();
 	window->close();
 }
 
@@ -39,7 +52,9 @@ void Application::gameLoop(Application* app, FrameLen timeStep)
 	{
 		EventController::pollEvents();
 		
-		gl::clear();
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		renderer.render(meshID, 786615);
 
 		app->window->update();
 

@@ -1,12 +1,16 @@
 #pragma once
 
-#include <glad/glad.h>
+#ifdef USE_VULKAN
+#include "Drivers/Vulkan/VulkanCore.h"
+#else
+#include "Drivers/OpenGL/GLCore.h"
+#endif
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 
 struct Viewport
 {
-	int x, y, width, height;
+	float x, y, width, height;
 };
 
 class Window
@@ -21,6 +25,7 @@ public:
 	Viewport getViewport();
 	glm::vec2 getSize();
 	bool shouldClose();
+	GLFWwindow* getGlfwWindowHandle();
 
 private:
 	void setWindowHints();

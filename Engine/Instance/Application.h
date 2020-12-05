@@ -1,9 +1,10 @@
 #pragma once
 
 #include "Core/Debug/EngineDebugger.h"
+#include "Controllers/RenderController.h"
 #include "Controllers/EventController.h"
-#include "Controllers/Window.h"
 #include "Core/Utilities.h"
+#include "Core/Model.h"
 
 #include <memory>
 
@@ -26,6 +27,9 @@ public:
 private:
 	static void gameLoop(Application* app, FrameLen timeStep = FrameLen(0));
 	static void physicsLoop(Application* app, FrameLen frameTime);
+
+	static RenderController& renderer;
+	static AssetController& assetManager;
 
 	Version version;
 	const char* name;

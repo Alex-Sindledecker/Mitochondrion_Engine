@@ -2,6 +2,7 @@
 #include "ShaderProgram.h"
 
 #include "Core/Utilities.h"
+#include "Core/Loaders.h"
 #include "Core/Debug/EngineDebugger.h"
 
 namespace gl
@@ -10,8 +11,8 @@ namespace gl
 	ShaderProgram::ShaderProgram(const char* vertexPath, const char* fragmentPath)
 	{
 		std::string vertexContents, fragmentContents;
-		util::readFile(vertexPath, &vertexContents);
-		util::readFile(fragmentPath, &fragmentContents);
+		readFile(vertexPath, &vertexContents);
+		readFile(fragmentPath, &fragmentContents);
 		const char* vertexSrc = vertexContents.c_str();
 		const char* fragmentSrc = fragmentContents.c_str();
 
@@ -41,9 +42,9 @@ namespace gl
 	ShaderProgram::ShaderProgram(const char* vertexPath, const char* fragmentPath, const char* geometryPath)
 	{
 		std::string vertexContents, fragmentContents, geometryContents;
-		util::readFile(vertexPath, &vertexContents);
-		util::readFile(fragmentPath, &fragmentContents);
-		util::readFile(fragmentPath, &geometryContents);
+		readFile(vertexPath, &vertexContents);
+		readFile(fragmentPath, &fragmentContents);
+		readFile(fragmentPath, &geometryContents);
 		const char* vertexSrc = vertexContents.c_str();
 		const char* fragmentSrc = fragmentContents.c_str();
 		const char* geometrySrc = geometryContents.c_str();
@@ -127,6 +128,21 @@ namespace gl
 	void ShaderProgram::setUniformInt(const char* position, int value) const
 	{
 		glUniform1i(glGetUniformLocation(programID, position), value);
+	}
+
+	void ShaderProgram::setUniformVector4(const char* position, float* vector) const
+	{
+		glUniform4fv(glGetUniformLocation(programID, position), 1, vector);
+	}
+
+	void ShaderProgram::setUniformVector3(const char* position, float* vector) const
+	{
+		glUniform3fv(glGetUniformLocation(programID, position), 1, vector);
+	}
+
+	void ShaderProgram::setUniformVector2(const char* position, float* vector) const
+	{
+		glUniform2fv(glGetUniformLocation(programID, position), 1, vector);
 	}
 
 	ShaderProgram& ShaderProgram::operator=(ShaderProgram&& oldShader) noexcept

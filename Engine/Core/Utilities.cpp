@@ -1,7 +1,5 @@
 #include "mepch.h"
 #include "Utilities.h"
-#define STB_IMAGE_IMPLEMENTATION
-#include <stbimage.h>
 
 namespace util
 {
@@ -73,31 +71,14 @@ namespace util
 		return ss.str();
 	}
 
-	Image loadImage(const char* src)
+	StackAllocator::StackAllocator(size_t bufferSize)
 	{
-		Image image;
-		image.pixels = stbi_load(src, &image.width, &image.height, &image.channels, 0);
-		return image;
+		buffer = new byte[bufferSize];
 	}
 
-	void freeImage(Image* image)
+	StackAllocator::~StackAllocator()
 	{
-		stbi_image_free(image->pixels);
-	}
-
-	void readFile(const std::string& src, std::string* dest)
-	{
-		std::ifstream file(src);
-		if (file.is_open())
-		{
-			std::stringstream ss;
-			ss << file.rdbuf();
-			*dest = ss.str();
-		}
-		else
-		{
-			*dest = "File not found!";
-		}
+		delete buffer;
 	}
 
 }

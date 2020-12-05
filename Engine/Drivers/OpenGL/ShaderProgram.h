@@ -1,6 +1,7 @@
 #pragma once
 
 #include <glm/glm.hpp>
+#include <glad/glad.h>
 
 namespace gl
 {
@@ -22,6 +23,9 @@ namespace gl
 		void setUniformVector2(const char* position, const glm::vec2& value) const;
 		void setUniformFloat(const char* position, float value) const;
 		void setUniformInt(const char* position, int value) const;
+		void setUniformVector4(const char* position, float* vector) const;
+		void setUniformVector3(const char* position, float* vector) const;
+		void setUniformVector2(const char* position, float* vector) const;
 
 		ShaderProgram& operator=(ShaderProgram&& oldShader) noexcept;
 		ShaderProgram& operator=(ShaderProgram& oldShader) noexcept;

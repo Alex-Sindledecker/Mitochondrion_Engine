@@ -2,6 +2,7 @@
 #include "Texture.h"
 
 #include "Core/Utilities.h"
+#include "Core/Loaders.h"
 
 namespace gl
 {
@@ -25,7 +26,7 @@ namespace gl
 
 	Texture2D::Texture2D(const char* src)
 	{
-		util::Image image = util::loadImage(src);
+		Image image = loadImage(src);
 
 		glGenTextures(1, &id);
 		glBindTexture(GL_TEXTURE_2D, id);
@@ -38,7 +39,7 @@ namespace gl
 		glGenerateMipmap(GL_TEXTURE_2D);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
-		util::freeImage(&image);
+		freeImage(&image);
 	}
 
 	Texture2D::~Texture2D()

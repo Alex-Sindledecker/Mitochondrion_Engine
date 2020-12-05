@@ -67,15 +67,15 @@ namespace EngineDebugger
 		{
 		case EngineDebugger::LogType::ERR:
 			SetConsoleTextAttribute(consoleHandle, FOREGROUND_RED);
-			std::cout << "ERROR! (" << time << ")   ----> " << message << std::endl;
+			std::cout << "[" << time << "]   ----> " << message << std::endl;
 			break;
 		case EngineDebugger::LogType::WRN:
 			SetConsoleTextAttribute(consoleHandle, FOREGROUND_RED | FOREGROUND_GREEN);
-			std::cout << "WARNING! (" << time << ") ----> " << message << std::endl;
+			std::cout << "[" << time << "] ----> " << message << std::endl;
 			break;
 		case EngineDebugger::LogType::MSG:
 			SetConsoleTextAttribute(consoleHandle, FOREGROUND_GREEN);
-			std::cout << "MESSAGE (" << time << ") ----> " << message << std::endl;
+			std::cout << "[" << time << "] ----> " << message << std::endl;
 			break;
 		}
 
@@ -99,13 +99,13 @@ namespace EngineDebugger
 		switch (type)
 		{
 		case EngineDebugger::LogType::ERR:
-			output << "ERROR! (" << time << ")   ----> " << message << std::endl;
+			output << "[" << time << "]   ----> " << message << std::endl;
 			break;
 		case EngineDebugger::LogType::WRN:
-			output << "WARNING! (" << time << ") ----> " << message << std::endl;
+			output << "[" << time << "] ----> " << message << std::endl;
 			break;
 		case EngineDebugger::LogType::MSG:
-			output << "MESSAGE (" << time << ") ----> " << message << std::endl;
+			output << "[" << time << "] ----> " << message << std::endl;
 			break;
 		}
 
@@ -119,29 +119,28 @@ namespace EngineDebugger
 		switch (type)
 		{
 		case EngineDebugger::LogType::ERR:
-			file << "ERROR! (" << time << ")   ----> " << message << std::endl;
+			file << "[" << time << "]   ----> " << message << std::endl;
 			break;
 		case EngineDebugger::LogType::WRN:
-			file << "WARNING! (" << time << ") ----> " << message << std::endl;
+			file << "[" << time << "] ----> " << message << std::endl;
 			break;
 		case EngineDebugger::LogType::MSG:
-			file << "MESSAGE (" << time << ") ----> " << message << std::endl;
+			file << "[" << time << "] ----> " << message << std::endl;
 			break;
 		}
 	}
 
-	static std::queue<ProfilingSession> sessions;
-	static const char* activeProfile;
+	static std::stack<ProfilingSession> sessions;
+	static std::stack<const char*> activeProfiles;
 
-	void beginProfilingSession()
+	void beginProfilingSession(const char* name)
 	{
-		sessions.push({});
-		sessions.front().duration = util::getCurrentTime();
+		sessions.push({ name, {}, util::getCurrentTime() });
 	}
 
 	ProfilingSession endProfilingSession()
 	{
-		ProfilingSession session = std::move(sessions.front());
+		ProfilingSession session = std::move(sessions.top());
 		session.duration = util::getCurrentTime() - session.duration;
 		sessions.pop();
 		return session;
@@ -149,24 +148,32 @@ namespace EngineDebugger
 
 	void beginProfile(const char* name)
 	{
-		ProfilingSession& session = sessions.front();
+		ProfilingSession& session = sessions.top();
 		session.profiles[name] = util::getCurrentTime();
-		activeProfile = name;
+		activeProfiles.push(name);
 	}
 
 	void endProfile()
 	{
-		ProfilingSession& session = sessions.front();
+		ProfilingSession& session = sessions.top();
+		const char* activeProfile = activeProfiles.top();
 		session.profiles[activeProfile] = util::getCurrentTime() - session.profiles[activeProfile];
+		activeProfiles.pop();
 	}
 
 	void printProfilingSession(ProfilingSession& session)
 	{
-		std::cout << util::formatString("Profiling session lasted {} seconds. {} sections were tested:", session.duration, session.profiles.size()) << std::endl;
+		static HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+		SetConsoleTextAttribute(consoleHandle, FOREGROUND_GREEN | FOREGROUND_BLUE);
+
+		std::cout << util::formatString("Profiling session for \"{}\" lasted {} seconds. {} sections were tested:", session.name, session.duration, session.profiles.size()) << std::endl;
 		for (const auto& profile : session.profiles)
 		{
 			std::cout << util::formatString("\"{}\": {} seconds ({}%)", profile.first, profile.second, profile.second / session.duration) << std::endl;
 		}
+		std::cout << std::endl;
+
+		SetConsoleTextAttribute(consoleHandle, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
 	}
 
 }

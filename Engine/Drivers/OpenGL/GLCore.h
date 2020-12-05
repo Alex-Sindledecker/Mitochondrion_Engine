@@ -20,7 +20,7 @@ namespace gl
 	void enableWireframeMode();
 	void disableWireframeMode();
 	void _drawElements(VertexArray vao, GLuint count);
-	void _drawElementsInstanced(VertexArray vao, GLuint vertexCount, GLuint instanceCount);
+	void _drawElementsInstanced(VertexArray vao, GLuint vertexBufferSize, GLuint instanceCount);
 	const OpenGLVersion getGLVersion();
 
 }

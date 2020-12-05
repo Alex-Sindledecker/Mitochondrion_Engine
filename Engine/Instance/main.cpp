@@ -4,13 +4,17 @@
 int main(int argc, char** argv)
 {
 	{
-		EngineDebugger::beginProfilingSession();
+		EngineDebugger::beginProfilingSession("App");
+		EngineDebugger::log("Engine startup...");
 
 		Application app;
 
-		PROFILE(app.init);
-		PROFILE(app.run);
-		PROFILE(app.terminate);
+		DBG_PROFILE1(app.init);
+		EngineDebugger::log("Startup complete! Running...");
+		DBG_PROFILE1(app.run);
+		DBG_PROFILE1(app.terminate);
+
+		EngineDebugger::log("Engine shutdown...");
 
 		auto appSession = EngineDebugger::endProfilingSession();
 		EngineDebugger::printProfilingSession(appSession);
