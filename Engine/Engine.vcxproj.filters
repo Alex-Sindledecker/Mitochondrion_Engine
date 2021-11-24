@@ -27,25 +27,25 @@
     <ClInclude Include="Controllers\Window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="_external\include\stbimage.h">
+    <ClInclude Include="dependencies\include\stbimage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="_external\include\imgui\imgui.h">
+    <ClInclude Include="dependencies\include\imgui\imgui.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="_external\include\imgui\imgui_internal.h">
+    <ClInclude Include="dependencies\include\imgui\imgui_internal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="_external\include\imgui\imstb_rectpack.h">
+    <ClInclude Include="dependencies\include\imgui\imstb_rectpack.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="_external\include\imgui\imstb_textedit.h">
+    <ClInclude Include="dependencies\include\imgui\imstb_textedit.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="_external\include\imgui\imstb_truetype.h">
+    <ClInclude Include="dependencies\include\imgui\imstb_truetype.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="_external\include\imgui\imconfig.h">
+    <ClInclude Include="dependencies\include\imgui\imconfig.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Controllers\EventController.h">
@@ -70,9 +70,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Controllers\RenderController.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Drivers\Vulkan\VulkanCore.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Core\Model.h">
@@ -101,19 +98,19 @@
     <ClCompile Include="Controllers\Window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="_external\include\glad.c">
+    <ClCompile Include="dependencies\include\glad.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="_external\include\imgui\imgui.cpp">
+    <ClCompile Include="dependencies\include\imgui\imgui.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="_external\include\imgui\imgui_demo.cpp">
+    <ClCompile Include="dependencies\include\imgui\imgui_demo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="_external\include\imgui\imgui_draw.cpp">
+    <ClCompile Include="dependencies\include\imgui\imgui_draw.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="_external\include\imgui\imgui_widgets.cpp">
+    <ClCompile Include="dependencies\include\imgui\imgui_widgets.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Controllers\EventController.cpp">
@@ -135,9 +132,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Drivers\OpenGL\Framebuffer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Drivers\Vulkan\VulkanCore.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Controllers\RenderController.cpp">

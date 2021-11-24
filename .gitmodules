@@ -1,7 +1,7 @@
-[submodule "Engine/_external/include/imgui"]
-	path = Engine/_external/include/imgui
+[submodule "Engine/dependencies/include/imgui"]
+	path = Engine/dependencies/include/imgui
 	url = https://github.com/ocornut/imgui/
 	branch = docking
-[submodule "Engine/_external/include/glm"]
-	path = Engine/_external/include/glm
+[submodule "Engine/dependencies/include/glm"]
+	path = Engine/dependencies/include/glm
 	url = https://github.com/g-truc/glm
