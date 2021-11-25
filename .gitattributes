@@ -1,2 +1,7 @@
 Engine/dependencies/* linguist-vendored
 Engine/dependencies/** linguist-vendored
+Engine/dependencies/include/glad.c linguist-vendored
+Engine/dependencies/include/KHR/khrplatform.h linguist-vendored
+Engine/dependencies/include/GLFW/glfw3.h linguist-vendored
+Engine/dependencies/include/glad/glad.h linguist-vendored
+Engine/dependencies/include/stbimage.h linguist-vendored
